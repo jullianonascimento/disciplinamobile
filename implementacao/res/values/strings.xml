@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="bem_vindo">Bem vindo ao SINOA, um sistema de notificações acadêmicas da UFG</string>
     <string name="title_activity_tela_usuario">TelaUsuario</string>
+    <string name="login">Fazer Login</string>
+    <string name="noticias_publicas">Notícias Públicas</string>
 
 </resources>

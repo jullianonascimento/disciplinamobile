@@ -3,6 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -10,16 +11,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.ufg.inf.es.sinoa.MainActivity$PlaceholderFragment" >
 
-    <TextView
+    <ImageView
+        android:id="@+id/logoUfg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bem_vindo" />
+        android:src="@drawable/logo_ufg" 
+        android:contentDescription="@null"/>
+
+    <TextView
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bem_vindo" 
+        android:layout_margin="10dp"/>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/botaoNoticiasPublicas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tela Usuário" 
-        android:onClick="vaiParaTelaUsuario"/>
+        android:text="@string/noticias_publicas" 
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/botaoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="vaiParaTelaUsuario"
+        android:text="@string/login" 
+        android:layout_margin="10dp"/>
 
 </LinearLayout>
