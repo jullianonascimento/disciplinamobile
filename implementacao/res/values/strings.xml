@@ -8,5 +8,8 @@
     <string name="title_activity_tela_usuario">TelaUsuario</string>
     <string name="login">Fazer Login</string>
     <string name="noticias_publicas">Notícias Públicas</string>
+    <string name="matricula">Matrícula</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
 
 </resources>

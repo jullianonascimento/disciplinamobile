@@ -26,12 +26,13 @@ public class MainActivity extends ActionBarActivity {
 		}
 				
 	}
-
-	public void vaiParaTelaUsuario(View view) {
-        Intent intent = new Intent(this, TelaUsuario.class);
+	
+	public void vaiParaTelaLogin(View view){
+		Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-    }
+	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

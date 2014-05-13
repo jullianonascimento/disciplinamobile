@@ -26,6 +26,11 @@
             android:name="br.ufg.inf.es.sinoa.TelaUsuario"
             android:label="@string/title_activity_tela_usuario" >
         </activity>
+        <activity
+            android:name="br.ufg.inf.es.sinoa.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
     </application>
 
 </manifest>

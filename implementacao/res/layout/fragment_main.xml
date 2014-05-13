@@ -35,7 +35,7 @@
         android:id="@+id/botaoLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="vaiParaTelaUsuario"
+        android:onClick="vaiParaTelaLogin"
         android:text="@string/login" 
         android:layout_margin="10dp"/>
 
