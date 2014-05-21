@@ -30,13 +30,13 @@
         android:layout_height="wrap_content"
         android:text="@string/noticias_publicas" 
         android:layout_margin="10dp"
-        android:onClick="vaiParaTelaNoticiasPublicas"/>
+        android:onClick="iniciaTelaNoticiasPublicas"/>
 
     <Button
         android:id="@+id/botaoLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="vaiParaTelaLogin"
+        android:onClick="iniciaTelaLogin"
         android:text="@string/login" 
         android:layout_margin="10dp"/>
 

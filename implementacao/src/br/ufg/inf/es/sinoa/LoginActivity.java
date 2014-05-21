@@ -83,12 +83,12 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						//attemptLogin();
-						vaiParaTelaUsuario(view);
+						iniciaTelaUsuario(view);
 					}
 				});
 	}
 	
-	public void vaiParaTelaUsuario(View view) {
+	public void iniciaTelaUsuario(View view) {
         Intent intent = new Intent(this, TelaUsuario.class);
         startActivity(intent);
     }

@@ -27,12 +27,12 @@ public class MainActivity extends ActionBarActivity {
 				
 	}
 	
-	public void vaiParaTelaNoticiasPublicas(View view){
+	public void iniciaTelaNoticiasPublicas(View view){
 		Intent intent = new Intent(this, TelaNoticiasPublicas.class);
         startActivity(intent);
 	}
 	
-	public void vaiParaTelaLogin(View view){
+	public void iniciaTelaLogin(View view){
 		Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 	}

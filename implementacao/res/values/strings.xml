@@ -11,5 +11,12 @@
     <string name="matricula">Matrícula</string>
     <string name="senha">Senha</string>
     <string name="entrar">Entrar</string>
+    <string name="title_activity_exibe_noticia">ExibeNoticia</string>
+    <string name="remetente">Remetente</string>
+    <string name="data">Data</string>
+    <string name="texto">Texto</string>
+    <string name="sample_date">01/01/2014</string>
+    <string name="sample_sender">Reitoria</string>
+    <string name="mensagem">Mensagem</string>
 
 </resources>

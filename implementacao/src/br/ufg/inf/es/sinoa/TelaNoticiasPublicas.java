@@ -1,6 +1,7 @@
 package br.ufg.inf.es.sinoa;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,13 +13,15 @@ import android.widget.Toast;
 
 public class TelaNoticiasPublicas extends Activity {
 	
+	String[] noticias = { "Noticia 1", "Noticia 2", "Noticia 3",
+	"Noticia 4"};
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_noticias_publicas);
 
-		String[] noticias = { "Noticia 1", "Noticia 2", "Noticia 3",
-				"Noticia 4"};
+		
 		ListView listView = (ListView) findViewById(R.id.lista);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, noticias);
@@ -27,12 +30,13 @@ public class TelaNoticiasPublicas extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int posicao, long arg3) {
+				
+				iniciaExibeNoticia(noticias[posicao]);
+				
 				Toast.makeText(TelaNoticiasPublicas.this,
-						"clique simples!",
+						"clique simples sobre " + noticias[posicao],
 						Toast.LENGTH_LONG).show();
-
 			}
 		});
 
@@ -48,5 +52,11 @@ public class TelaNoticiasPublicas extends Activity {
 			}
 
 		});
+	}
+	
+	public void iniciaExibeNoticia(String noticia){
+		Intent intent = new Intent(this, TelaExibeNoticia.class);
+		intent.putExtra("mensagem", noticia);
+        startActivity(intent);
 	}
 }
