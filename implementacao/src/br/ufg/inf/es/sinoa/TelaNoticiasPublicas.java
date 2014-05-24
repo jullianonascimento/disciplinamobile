@@ -1,5 +1,7 @@
 package br.ufg.inf.es.sinoa;
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +17,12 @@ public class TelaNoticiasPublicas extends Activity {
 	
 	String[] noticias = { "Noticia 1", "Noticia 2", "Noticia 3",
 	"Noticia 4"};
+
+	private Date data = new Date();
+	private String remetente;
+	private String texto;
+	
+	Noticia objetoNoticia = new Noticia(data, remetente, texto);
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

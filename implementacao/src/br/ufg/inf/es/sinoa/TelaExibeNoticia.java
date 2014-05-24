@@ -40,8 +40,12 @@ public class TelaExibeNoticia extends Activity {
 	public void recebeNoticia(){
 	    Intent intent = getIntent();
 	    String message = intent.getStringExtra("mensagem");
-	    TextView textView = (TextView) findViewById(R.id.textViewTexto);
-	    textView.setText(message);
+	    
+	    TextView textViewTexto = (TextView) findViewById(R.id.textViewTexto);
+	    textViewTexto.setText(message);
+	    
+	    TextView textViewData = (TextView) findViewById(R.id.textViewData);
+	    textViewData.setText(message);
 	}
 
 }
