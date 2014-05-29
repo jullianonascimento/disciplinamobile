@@ -1,8 +1,42 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/layoutTelaUsuario"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="br.ufg.inf.es.sinoa.MainActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+<ImageView
+        android:id="@+id/logoUfg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_ufg" 
+        android:contentDescription="@null"/>
+
+    <TextView
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bem_vindo" 
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/botaoNoticiasPublicas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/noticias_publicas" 
+        android:layout_margin="10dp"
+        android:onClick="iniciaTelaNoticiasPublicas"/>
+
+    <Button
+        android:id="@+id/botaoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="iniciaTelaLogin"
+        android:text="@string/login" 
+        android:layout_margin="10dp"/>
+
+</LinearLayout>
+
 

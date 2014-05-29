@@ -1,20 +1,30 @@
 package br.ufg.inf.es.sinoa;
 
-import java.util.Date;
 
 public class Noticia {
-
-	private Date data;
+	
+	private int id;
+	private String data;
 	private String remetente;
 	private String texto;
 	
-	public Noticia(Date data, String remetente, String texto) {
+	public Noticia() {
+		
+	}
+	
+	public Noticia(int id, String data, String remetente, String texto) {
+		super();
+		this.id = id;
 		this.data = data;
 		this.remetente = remetente;
 		this.texto = texto;
 	}
 	
-	public Date getData() {
+	public int getId() {
+		return id;
+	}
+	
+	public String getData() {
 		return data;
 	}
 	
@@ -26,7 +36,11 @@ public class Noticia {
 		return texto;
 	}
 	
-	public void setData(Date data) {
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public void setData(String data) {
 		this.data = data;
 	}
 	
@@ -37,5 +51,10 @@ public class Noticia {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+	
+	@Override
+    public String toString() {
+        return data + " " +  remetente + " " + texto;
+    }
 	
 }

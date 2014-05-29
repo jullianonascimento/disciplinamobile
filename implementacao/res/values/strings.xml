@@ -18,5 +18,10 @@
     <string name="sample_date">01/01/2014</string>
     <string name="sample_sender">Reitoria</string>
     <string name="mensagem">Mensagem</string>
+    <string name="notificacoes">Notificações</string>
+    <string name="notas">Notas e Frequências</string>
+    <string name="avisos_biblioteca">Avisos da Biblioteca</string>
+    <string name="comunicados">Comunicados</string>
+    <string name="configuracoes">Configurações</string>
 
 </resources>
