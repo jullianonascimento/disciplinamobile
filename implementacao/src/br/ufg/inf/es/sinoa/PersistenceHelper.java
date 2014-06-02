@@ -21,6 +21,11 @@ public class PersistenceHelper extends SQLiteOpenHelper {
          
         return instance;
     }
+    
+    public static void reiniciaBanco(SQLiteDatabase db){
+    	 db.execSQL(NoticiaDAO.SCRIPT_DELECAO_TABELA);
+    	 db.execSQL(NoticiaDAO.SCRIPT_CRIACAO_TABELA_NOTICIAS);
+    }
  
     @Override
     public void onCreate(SQLiteDatabase db) {

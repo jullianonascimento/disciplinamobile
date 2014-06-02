@@ -37,15 +37,21 @@ public class TelaExibeNoticia extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void recebeNoticia(){
-	    Intent intent = getIntent();
-	    String message = intent.getStringExtra("mensagem");
-	    
-	    TextView textViewTexto = (TextView) findViewById(R.id.textViewTexto);
-	    textViewTexto.setText(message);
-	    
-	    TextView textViewData = (TextView) findViewById(R.id.textViewData);
-	    textViewData.setText(message);
+	public void recebeNoticia() {
+		Intent intent = getIntent();
+
+		String data = intent.getStringExtra("data");
+		TextView textViewData = (TextView) findViewById(R.id.textViewData);
+		textViewData.setText(data);
+
+		String remetente = intent.getStringExtra("remetente");
+		TextView textViewRemetente = (TextView) findViewById(R.id.textViewRemetente);
+		textViewRemetente.setText(remetente);
+
+		String mensagem = intent.getStringExtra("texto");
+		TextView textViewTexto = (TextView) findViewById(R.id.textViewTexto);
+		textViewTexto.setText(mensagem);
+
 	}
 
 }

@@ -54,7 +54,13 @@ public class Noticia {
 	
 	@Override
     public String toString() {
-        return data + " " +  remetente + " " + texto;
+		int tamanhoTitulo = 100;
+		
+		if (texto.length() < tamanhoTitulo){
+			tamanhoTitulo = texto.length();
+		}
+		
+        return  texto.substring(0, tamanhoTitulo);
     }
 	
 }
