@@ -1,18 +1,16 @@
 package br.ufg.inf.es.sinoa;
 
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class TelaNoticiasPublicas extends Activity {
 
@@ -20,42 +18,71 @@ public class TelaNoticiasPublicas extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_noticias_publicas);
+		
 
-		NoticiaDAO noticiaDAO = NoticiaDAO.getInstance(this);
+		Notificacao notificacao = new Notificacao(0, "publica", "27", "CGA", "Preenchimento", "O preenchimento", "false", "");
+		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 
-		criaNoticiasFicticias(noticiaDAO);
+		notificacaoDAO.salvar(notificacao);
 
-		final List<Noticia> noticiasNoBanco = noticiaDAO.recuperarTodas();
+		List<Notificacao> notificacoesNaBase = notificacaoDAO.recuperarTodas();
 
-		final Noticia[] vetorNoticias = noticiasNoBanco
-				.toArray(new Noticia[noticiasNoBanco.size()]);
+		Notificacao notificacaoRecuperada = notificacoesNaBase.get(0);
+		Log.i("noticia", notificacaoRecuperada.toString());
+		
+		
+		
+		/*reinicia o banco de dados
+		PersistenceHelper persistenceHelper = PersistenceHelper
+				.getInstance(this);
+		SQLiteDatabase db = persistenceHelper.getWritableDatabase();
+		PersistenceHelper.reiniciaBanco(db);
+		
 
-		noticiaDAO.fecharConexao();
+		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 
+		Notificacao notificacao0 = new Notificacao(12, "publica", "27/05/2014", "Reitoria",
+				"Informativo da Reitoria", "A reitoria da UFG informa que...", "false", "");
+		Notificacao notificacao1 = new Notificacao(1, "comunicado", "28/05/2014", "Pró-Reitoria",
+				"Comunicado Local de Prova", "Os locais de prova do processo seletivo x...", "false", null);
+		Notificacao notificacao2 = new Notificacao();
+		
+		Log.i("noticias-publicas", "vai criar notificacao");
+		//notificacaoDAO.salvar(notificacao0);
+		//notificacaoDAO.salvar(notificacao1);
+		notificacaoDAO.salvar(notificacao2);
+
+		final List<Notificacao> notificacoesNoBanco = notificacaoDAO.recuperarTodas();
+		
+		*/
+
+		final Notificacao[] arrayNotificacoes = notificacoesNaBase
+				.toArray(new Notificacao[notificacoesNaBase.size()]);
+
+		/*Log.i("noticias-publicas", "vai fechar conexao");
+		notificacaoDAO.fecharConexao();
+		*/
 		ListView listView = (ListView) findViewById(R.id.lista);
 
-		ArrayAdapter<Noticia> adapter = new ArrayAdapter<Noticia>(this,
-				android.R.layout.simple_list_item_1, vetorNoticias);
+		ArrayAdapter<Notificacao> adapter = new ArrayAdapter<Notificacao>(this,
+				android.R.layout.simple_list_item_1, arrayNotificacoes);
 		listView.setAdapter(adapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int posicao, long arg3) {
 
-				// Noticia noticiaClicada = noticiasNoBanco.get(posicao);
-				Noticia noticiaClicada = vetorNoticias[posicao];
-				String data = noticiaClicada.getData();
-				String remetente = noticiaClicada.getRemetente();
-				String texto = noticiaClicada.getTexto();
+				Notificacao notificacaoClicada = arrayNotificacoes[posicao];
+				String data = notificacaoClicada.getData();
+				String remetente = notificacaoClicada.getRemetente();
+				String texto = notificacaoClicada.getTexto();
 
 				iniciaExibeNoticia(data, remetente, texto);
 
-				Toast.makeText(TelaNoticiasPublicas.this,
+				/*Toast.makeText(TelaNoticiasPublicas.this,
 						"clique simples sobre a posição " + posicao,
-						Toast.LENGTH_LONG).show();
-
+						Toast.LENGTH_LONG).show();*/
 			}
 		});
 
@@ -72,6 +99,7 @@ public class TelaNoticiasPublicas extends Activity {
 			}
 
 		});
+		
 	}
 
 	public void iniciaExibeNoticia(String data, String remetente, String texto) {
@@ -81,10 +109,10 @@ public class TelaNoticiasPublicas extends Activity {
 		intent.putExtra("texto", texto);
 		startActivity(intent);
 	}
+/*
+	public void criaNoticiasFicticias(NotificacaoDAO noticiaDAO) {
 
-	public void criaNoticiasFicticias(NoticiaDAO noticiaDAO) {
-
-		Noticia noticia0 = new Noticia(
+		Notificacao noticia0 = new Notificacao(
 				0,
 				"23/05/2014",
 				"CGA UFG",
@@ -95,10 +123,10 @@ public class TelaNoticiasPublicas extends Activity {
 						+ "de turno e reingresso, destinadas ao segundo semestre do ano letivo de 2014. "
 						+ "Os candidatos poderão se inscrever do dia 26/05 a 30/05.");
 
-		Noticia noticia1 = new Noticia(1, "27/05/2014", "Reitoria",
+		Notificacao noticia1 = new Notificacao(1, "27/05/2014", "Reitoria",
 				"A reitoria da UFG informa que...");
 
-		Noticia noticia2 = new Noticia(
+		Notificacao noticia2 = new Notificacao(
 				2,
 				"22/05/14",
 				"Pró-Reitoria",
@@ -119,4 +147,33 @@ public class TelaNoticiasPublicas extends Activity {
 		noticiaDAO.salvar(noticia1);
 		noticiaDAO.salvar(noticia2);
 	}
+
+	public void criaComunicadosFicticios(NotificacaoDAO noticiaDAO) {
+
+		Notificacao noticia0 = new Notificacao(0, "23/05/2014", "CS UFG",
+				"Comunicado local de prova...");
+
+		Notificacao noticia1 = new Notificacao(1, "27/05/2014", "Reitoria",
+				"A reitoria da UFG comunica que...");
+
+		Notificacao noticia2 = new Notificacao(
+				2,
+				"22/05/14",
+				"CS UFG",
+				"Isenção do pagamento da inscrição do Processo Seletivo 2014-2.\n Tendo em vista as "
+						+ "manifestações ocorridas na Regional Jataí, o prazo para entrega da documentação requerida "
+						+ "para o PROGRAMA DE ISENÇÃO DO PAGAMENTO DE INSCRIÇÃO PARA O PROCESSO SELETIVO 2014-2 será "
+						+ "prorrogado por três dias após a normalidade das atividades nesta regional. As datas "
+						+ "de entrega da documentação nos demais campus permanecem inalteradas.");
+
+		PersistenceHelper persistenceHelper = PersistenceHelper
+				.getInstance(this);
+		SQLiteDatabase db = persistenceHelper.getWritableDatabase();
+		PersistenceHelper.reiniciaBanco(db);
+
+		noticiaDAO.salvar(noticia0);
+		noticiaDAO.salvar(noticia1);
+		noticiaDAO.salvar(noticia2);
+	}
+	*/
 }

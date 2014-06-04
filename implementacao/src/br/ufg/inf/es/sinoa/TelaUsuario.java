@@ -16,8 +16,9 @@ public class TelaUsuario extends Activity {
 
 	}
 	
-	public void iniciaTelaNoticias(View v){
+	public void iniciaTelaComunicado(View v){
 		Intent intent = new Intent(this, TelaNoticiasPublicas.class);
+		intent.putExtra("tipoNoticia", "comunicado");
         startActivity(intent);
 	}
 
