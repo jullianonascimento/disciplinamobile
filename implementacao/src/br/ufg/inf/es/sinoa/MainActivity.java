@@ -3,8 +3,6 @@ package br.ufg.inf.es.sinoa;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends Activity {
@@ -13,11 +11,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//colocando dados ficticios no banco
+		DadosFicticios.criaNotificacoesFicticias(this);
 	}
 
-	public void iniciaTelaNoticiasPublicas(View view) {
-		Intent intent = new Intent(this, TelaNoticiasPublicas.class);
-		//intent.putExtra("tipoNoticia", "publica");
+	public void iniciaTelaVisitante(View view) {
+		Intent intent = new Intent(this, TelaVisitante.class);
 		startActivity(intent);
 	}
 
@@ -25,7 +25,8 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
-
+	
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -43,6 +44,6 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 
 }

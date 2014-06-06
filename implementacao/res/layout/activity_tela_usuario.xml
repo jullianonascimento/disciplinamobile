@@ -1,47 +1,58 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutTelaUsuario"
+    android:id="@+id/layoutScrollViewUsuario"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context="br.ufg.inf.es.sinoa.TelaUsuario"
-    tools:ignore="MergeRootFrame" >
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp" >
 
-    <Button
-        android:id="@+id/notificacoes"
+    <LinearLayout
+        android:id="@+id/layoutTelaUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/notificacoes" />
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context="br.ufg.inf.es.sinoa.TelaUsuario"
+        tools:ignore="MergeRootFrame" >
 
-    <Button
-        android:id="@+id/notas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/notas" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="240dp"
+            android:layout_height="100dp"
+            android:contentDescription="@null"
+            android:src="@drawable/sinoa_tela_usuario" />
 
-    <Button
-        android:id="@+id/avisos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/avisos_biblioteca" />
+        <Button
+            android:id="@+id/notificacoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/notificacoes"
+            android:onClick="iniciaTelaNotificacoes" />
 
-    <Button
-        android:id="@+id/comunicados"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/comunicados"
-        android:onClick="iniciaTelaComunicado" />
+        <Button
+            android:id="@+id/notas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/notas"
+            android:onClick="iniciaTelaNotas" />
 
-    <Button
-        android:id="@+id/configuracoes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/configuracoes" />
+        <Button
+            android:id="@+id/avisos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/avisos_biblioteca"
+            android:onClick="iniciaTelaAvisosBiblioteca" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/configuracoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/configuracoes"
+            android:onClick="iniciaConfiguracoes" />
+    </LinearLayout>
+
+</ScrollView>

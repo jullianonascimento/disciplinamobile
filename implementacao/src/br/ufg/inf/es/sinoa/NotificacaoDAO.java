@@ -56,6 +56,11 @@ public class NotificacaoDAO {
  
         return notificacoes;
     }
+    
+    public void deletarTodasNotificacoes(){
+    	String query = "DELETE FROM " + NOME_TABELA;
+    	dataBase.execSQL(query);
+    }
  
     public void deletar(Notificacao notificacao) {
  

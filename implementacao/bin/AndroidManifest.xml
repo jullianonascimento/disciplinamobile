@@ -31,11 +31,21 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
-        <activity android:name="br.ufg.inf.es.sinoa.TelaNoticiasPublicas" android:label="@string/app_name">
+        <activity
+            android:name="br.ufg.inf.es.sinoa.TelaNotificacoes"
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.TelaExibeNoticia"
+            android:name="br.ufg.inf.es.sinoa.TelaExibeNotificacao"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="br.ufg.inf.es.sinoa.TelaVisitante"
+            android:label="@string/title_activity_tela_visitante" >
+        </activity>
+        <activity
+            android:name="br.ufg.inf.es.sinoa.SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 

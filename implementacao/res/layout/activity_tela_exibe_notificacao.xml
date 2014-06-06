@@ -7,9 +7,9 @@
     <LinearLayout
         android:id="@+id/linearLayoutExibeNoticia"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context="br.ufg.inf.es.sinoa.TelaExibeNoticia"
+        tools:context="br.ufg.inf.es.sinoa.TelaExibeNotificacao"
         tools:ignore="MergeRootFrame" >
 
         <TextView
@@ -55,6 +55,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/titulo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
         <TextView
             android:id="@+id/textViewTexto"
             android:layout_width="wrap_content"

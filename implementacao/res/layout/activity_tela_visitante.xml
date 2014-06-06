@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutScrollView"
+    android:id="@+id/layoutScrollViewVisitante"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp" >
 
     <LinearLayout
@@ -12,37 +12,36 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context="br.ufg.inf.es.sinoa.MainActivity"
+        tools:context="br.ufg.inf.es.sinoa.TelaVisitante"
         tools:ignore="MergeRootFrame" >
-
+        
         <ImageView
-            android:id="@+id/logoUfg"
+            android:id="@+id/imageView1"
             android:layout_width="240dp"
-            android:layout_height="240dp"
+            android:layout_height="100dp"
             android:contentDescription="@null"
-            android:src="@drawable/sinoa_logo_com_sino_sem_fundo" />
-
-        <TextView
-            android:layout_width="234dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/bem_vindo" />
+            android:src="@drawable/sinoa_tela_visitante" />
 
         <Button
-            android:id="@+id/botaoVisitante"
+            android:id="@+id/noticiasPublicas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:onClick="iniciaTelaVisitante"
-            android:text="@string/visitante" />
+            android:text="@string/noticias_publicas"
+            android:onClick="iniciaTelaNoticiasPublicas" />
 
         <Button
-            android:id="@+id/botaoLogin"
+            android:id="@+id/comunicados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:onClick="iniciaTelaLogin"
-            android:text="@string/login" />
+            android:text="@string/comunicados"
+            android:onClick="iniciaTelaComunicados" />
     </LinearLayout>
 
 </ScrollView>
+
+
+
+
+

@@ -3,8 +3,6 @@ package br.ufg.inf.es.sinoa;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 public class TelaUsuario extends Activity {
@@ -16,12 +14,30 @@ public class TelaUsuario extends Activity {
 
 	}
 	
-	public void iniciaTelaComunicado(View v){
-		Intent intent = new Intent(this, TelaNoticiasPublicas.class);
-		intent.putExtra("tipoNoticia", "comunicado");
+	public void iniciaTelaNotificacoes(View v){
+		Intent intent = new Intent(this, TelaNotificacoes.class);
+		intent.putExtra("tipo", "prova");
+        startActivity(intent);
+	}
+	
+	public void iniciaTelaNotas(View v){
+		Intent intent = new Intent(this, TelaNotificacoes.class);
+		intent.putExtra("tipo", "nota");
+        startActivity(intent);
+	}
+	
+	public void iniciaTelaAvisosBiblioteca(View v){
+		Intent intent = new Intent(this, TelaNotificacoes.class);
+		intent.putExtra("tipo", "biblioteca");
+        startActivity(intent);
+	}
+	
+	public void iniciaConfiguracoes(View v){
+		Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
 	}
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -41,7 +57,6 @@ public class TelaUsuario extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-
+*/
 
 }
