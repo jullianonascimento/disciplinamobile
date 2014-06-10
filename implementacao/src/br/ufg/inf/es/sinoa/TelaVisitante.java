@@ -15,7 +15,7 @@ public class TelaVisitante extends Activity {
 	
 	public void iniciaTelaNoticiasPublicas(View view) {
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra("tipo", "pública");
+		intent.putExtra("tipo", "publica");
 		startActivity(intent);
 	}
 

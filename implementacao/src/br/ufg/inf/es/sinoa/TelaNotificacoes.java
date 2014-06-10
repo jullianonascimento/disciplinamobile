@@ -19,10 +19,13 @@ public class TelaNotificacoes extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_notificacoes);
+		
+		Intent intent = getIntent();
+		String tipo = intent.getStringExtra("tipo");
 				
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 				
-		List<Notificacao> notificacoesNaBase = notificacaoDAO.recuperarTodas();
+		List<Notificacao> notificacoesNaBase = notificacaoDAO.recuperarNoticiaPorTipo(tipo);
 
 		final Notificacao[] arrayNotificacoes = notificacoesNaBase.toArray(new Notificacao[notificacoesNaBase.size()]);
 

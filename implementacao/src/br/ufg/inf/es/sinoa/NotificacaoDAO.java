@@ -57,6 +57,14 @@ public class NotificacaoDAO {
         return notificacoes;
     }
     
+    public List<Notificacao> recuperarNoticiaPorTipo(String tipo) {
+        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipo + "'";
+        Cursor cursor = dataBase.rawQuery(query, null);
+        List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
+ 
+        return notificacoes;
+    }
+    
     public void deletarTodasNotificacoes(){
     	String query = "DELETE FROM " + NOME_TABELA;
     	dataBase.execSQL(query);
