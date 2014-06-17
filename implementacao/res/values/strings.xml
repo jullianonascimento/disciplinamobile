@@ -26,5 +26,7 @@
     <string name="titulo">Título</string>
     <string name="title_activity_tela_visitante">Visitante</string>
     <string name="visitante">Acessar como Visitante</string>
+    <string name="ordenar_por_remetente">Ordenar por Remetente</string>
+    <string name="ordenar_por_data">Ordenar por Data</string>
 
 </resources>

@@ -57,8 +57,9 @@ public class NotificacaoDAO {
         return notificacoes;
     }
     
-    public List<Notificacao> recuperarNoticiaPorTipo(String tipo) {
-        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipo + "'";
+    public List<Notificacao> recuperarNotificacao(String tipoNotificacao, String tipoOrdenacao) {
+        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "'"
+        		+ " ORDER BY " + tipoOrdenacao + " ASC";
         Cursor cursor = dataBase.rawQuery(query, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
  
