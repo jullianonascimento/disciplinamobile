@@ -24,7 +24,9 @@ public class DadosFicticios {
 		Notificacao notificacao0 = new Notificacao(0, "publica", "27/05/2014",
 				"Reitoria", "Processo Seletivo Para Preenchimento de Vagas UFG 2014-1", 
 				"O Reitor da Universidade Federal de Goiás (UFG) informa que se encontra aberto"
-				+ " o Processo Seletivo Para Preenchimento de Vagas Disponíveis 2014-1.", "false", "");
+				+ " o Processo Seletivo Para Preenchimento de Vagas Disponíveis 2014-1. "
+				+ "Veja o edital em http://www.vestibular.ufg.br/2014/preenchimento/index.php/editais/18-edital-n-083-2013", 
+				"false", "");
 		Notificacao notificacao1 = new Notificacao(1, "comunicado",
 				"28/05/2014", "Centro de Seleção", "Processo Seletivo 2014/1 Comunicado Local de Prova do VHCE",
 				"O Centro de Seleção informa que o local de prova do VHCE será divulgado a partir das 18:00h do dia 30 "

@@ -69,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/texto"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:autoLink="web" />
     </LinearLayout>
 
 </ScrollView>
