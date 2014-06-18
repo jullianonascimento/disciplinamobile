@@ -1,5 +1,7 @@
 package br.ufg.inf.es.sinoa;
 
+import java.util.List;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -10,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -24,10 +25,10 @@ public class LoginActivity extends Activity {
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
-	 */
+	 
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
-
+			"jullianonascimento@inf.ufg.br:admin", "faelcorrea49@gmail.com:123456" };
+	 */
 	/**
 	 * The default email to populate the email field with.
 	 */
@@ -39,11 +40,11 @@ public class LoginActivity extends Activity {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
+	private String mMatricula;
 	private String mPassword;
 
 	// UI references.
-	private EditText mEmailView;
+	private EditText mMatriculaView;
 	private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
@@ -56,9 +57,9 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+		mMatricula = getIntent().getStringExtra(EXTRA_EMAIL);
+		mMatriculaView = (EditText) findViewById(R.id.email);
+		mMatriculaView.setText(mMatricula);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -82,23 +83,23 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						//attemptLogin();
-						iniciaTelaUsuario(view);
+						attemptLogin();
 					}
 				});
 	}
 	
-	public void iniciaTelaUsuario(View view) {
+	public void iniciaTelaUsuario() {
         Intent intent = new Intent(this, TelaUsuario.class);
         startActivity(intent);
     }
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
-	}
+	}*/
 
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
@@ -111,11 +112,11 @@ public class LoginActivity extends Activity {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		mMatriculaView.setError(null);
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		mMatricula = mMatriculaView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
@@ -133,15 +134,15 @@ public class LoginActivity extends Activity {
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_field_required));
-			focusView = mEmailView;
+		if (TextUtils.isEmpty(mMatricula)) {
+			mMatriculaView.setError(getString(R.string.error_field_required));
+			focusView = mMatriculaView;
 			cancel = true;
-		} else if (!mEmail.contains("@")) {
+		} /*else if (!mEmail.contains("@")) {
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
 			cancel = true;
-		}
+		}*/
 
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
@@ -203,6 +204,7 @@ public class LoginActivity extends Activity {
 	 * the user.
 	 */
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+		
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
@@ -213,17 +215,39 @@ public class LoginActivity extends Activity {
 			} catch (InterruptedException e) {
 				return false;
 			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
+			
+			/*for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mEmail)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
 			}
-
-			// TODO: register the new account here.
-			return true;
+			
+			UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(LoginActivity.this);
+			Log.i("login", " antes de usuario recuperado ");
+			Usuario usuarioRecuperado = usuarioDAO.recuperarUsuarioPorMatricula(Integer.parseInt(mEmail));
+			Log.i("login", "usuario recuperado " + usuarioRecuperado.getNome());
+			*/
+			
+			try {
+				UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(LoginActivity.this);
+				List<Usuario> usuariosNaBase = usuarioDAO.recuperarTodos();
+				
+				for (int i = 0; i < usuariosNaBase.size(); i++){
+					Usuario usuarioRecuperado = usuariosNaBase.get(i);
+					if(usuarioRecuperado.getMatricula() == Integer.parseInt(mMatricula)){
+						if (mPassword.equals(usuarioRecuperado.getSenha())){
+							return true;
+						} 
+					}
+				}
+				
+			} catch (Exception e) {
+				return false;
+			}
+			
+			return false;
 		}
 
 		@Override
@@ -232,10 +256,10 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
+				iniciaTelaUsuario();
 				finish();
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
 		}
