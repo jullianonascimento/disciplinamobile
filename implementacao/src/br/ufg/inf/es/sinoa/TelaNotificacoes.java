@@ -20,7 +20,7 @@ public class TelaNotificacoes extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_notificacoes);
 		
-		ordenarListaPor(NotificacaoDAO.COLUNA_ID);
+		ordenarListaPor(NotificacaoDAO.COLUNA_ID, NotificacaoDAO.ASCENDENTE);
 	}
 	
 	@Override
@@ -33,24 +33,30 @@ public class TelaNotificacoes extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.ordenarPorData) {
-            ordenarListaPor(NotificacaoDAO.COLUNA_DATA);
+        if (id == R.id.dataAscendente) {
+            ordenarListaPor(NotificacaoDAO.COLUNA_DATA, NotificacaoDAO.ASCENDENTE);
             return true;
-        } else if (id == R.id.ordenarPorRemetente) {
-        	ordenarListaPor(NotificacaoDAO.COLUNA_REMETENTE);
+        } else if (id == R.id.dataDescendente) {
+        	ordenarListaPor(NotificacaoDAO.COLUNA_DATA, NotificacaoDAO.DESCENDENTE);
+            return true;
+        } else if (id == R.id.remetenteAscendente) {
+        	ordenarListaPor(NotificacaoDAO.COLUNA_REMETENTE, NotificacaoDAO.ASCENDENTE);
+            return true;
+        } else if (id == R.id.remetenteDescendente) {
+        	ordenarListaPor(NotificacaoDAO.COLUNA_REMETENTE, NotificacaoDAO.DESCENDENTE);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-	public void ordenarListaPor(String tipoOrdenacao) {
+	public void ordenarListaPor(String tipoOrdenacao, String organizacao) {
 		Intent intent = getIntent();
 		String tipoNotificacao = intent.getStringExtra("tipo");
 				
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 		
-		List<Notificacao> notificacoesNaBase = notificacaoDAO.recuperarNotificacao(tipoNotificacao, tipoOrdenacao);
+		List<Notificacao> notificacoesNaBase = notificacaoDAO.recuperarNotificacao(tipoNotificacao, tipoOrdenacao, organizacao);
 
 		final Notificacao[] arrayNotificacoes = notificacoesNaBase.toArray(new Notificacao[notificacoesNaBase.size()]);
 	

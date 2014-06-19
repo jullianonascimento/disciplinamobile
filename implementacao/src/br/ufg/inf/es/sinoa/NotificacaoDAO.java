@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class NotificacaoDAO {
 	 
-	 
     public static final String NOME_TABELA = "Notificacao";
     public static final String COLUNA_ID = "id";
     public static final String COLUNA_TIPO = "tipo";
@@ -20,7 +19,9 @@ public class NotificacaoDAO {
     public static final String COLUNA_TEXTO = "texto";
     public static final String COLUNA_STATUS = "status";
     public static final String COLUNA_DISCIPLINA = "disciplina";
- 
+    
+    public static final String ASCENDENTE = "ASC"; 
+    public static final String DESCENDENTE = "DESC"; 
  
     public static final String SCRIPT_CRIACAO_TABELA_NOTIFICACAO = "CREATE TABLE " + NOME_TABELA + "("
             + COLUNA_ID + " INTEGER PRIMARY KEY," + COLUNA_TIPO + " TEXT," + COLUNA_DATA + " TEXT,"
@@ -57,9 +58,9 @@ public class NotificacaoDAO {
         return notificacoes;
     }
     
-    public List<Notificacao> recuperarNotificacao(String tipoNotificacao, String tipoOrdenacao) {
+    public List<Notificacao> recuperarNotificacao(String tipoNotificacao, String tipoOrdenacao, String organizacao) {
         String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "'"
-        		+ " ORDER BY " + tipoOrdenacao + " ASC";
+        		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
         Cursor cursor = dataBase.rawQuery(query, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
  

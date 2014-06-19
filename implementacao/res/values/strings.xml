@@ -28,5 +28,7 @@
     <string name="visitante">Acessar como Visitante</string>
     <string name="ordenar_por_remetente">Ordenar por Remetente</string>
     <string name="ordenar_por_data">Ordenar por Data</string>
+    <string name="ascendente">Ascendente</string>
+    <string name="descendente">Descendente</string>
 
 </resources>
