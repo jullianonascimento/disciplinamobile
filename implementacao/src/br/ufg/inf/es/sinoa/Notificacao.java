@@ -10,6 +10,9 @@ public class Notificacao {
     private String texto;
     private String status;
     private String disciplina;
+    
+    public static String lida = "true";
+    public static String naoLida = "false";
  
     public Notificacao() {
  

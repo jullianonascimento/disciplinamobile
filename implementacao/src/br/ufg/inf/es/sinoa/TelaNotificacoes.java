@@ -5,21 +5,35 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class TelaNotificacoes extends Activity {
+public class TelaNotificacoes extends Activity implements OnItemClickListener {
+	
+	private ListView listView;
+	private AdapterListaNoticias adapterListaNoticias;
+	private List<Notificacao> notificacoes;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_notificacoes);
+				
+		listView = (ListView) findViewById(R.id.lista);
+		listView.setOnItemClickListener(this);
+		registerForContextMenu(listView);
 		
+		criarListView();
+	}
+	
+	private void criarListView() {
 		ordenarListaPor(NotificacaoDAO.COLUNA_ID, NotificacaoDAO.ASCENDENTE);
 	}
 	
@@ -56,30 +70,24 @@ public class TelaNotificacoes extends Activity {
 				
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 		
-		List<Notificacao> notificacoesNaBase = notificacaoDAO.recuperarNotificacao(tipoNotificacao, tipoOrdenacao, organizacao);
-
-		final Notificacao[] arrayNotificacoes = notificacoesNaBase.toArray(new Notificacao[notificacoesNaBase.size()]);
+		notificacoes = notificacaoDAO.recuperarNotificacao(tipoNotificacao, tipoOrdenacao, organizacao);
+		
+		adapterListaNoticias = new AdapterListaNoticias(this, notificacoes);
+		listView.setAdapter(adapterListaNoticias);
+	}
 	
-		ArrayAdapter<Notificacao> adapter = new ArrayAdapter<Notificacao>(this,
-				android.R.layout.simple_list_item_checked, arrayNotificacoes);
-				
-		ListView listView = (ListView) findViewById(R.id.lista);
-		listView.setAdapter(adapter);
-
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int posicao, long arg3) {
-
-				Notificacao notificacaoClicada = arrayNotificacoes[posicao];
-				String data = notificacaoClicada.getData();
-				String remetente = notificacaoClicada.getRemetente();
-				String titulo = notificacaoClicada.getTitulo();
-				String texto = notificacaoClicada.getTexto();
-
-				iniciaExibeNotificacao(data, remetente, titulo, texto);
-			}
-		});
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View view, int posicao, long arg3) {
+		Notificacao notificacaoClicada = adapterListaNoticias.getItem(posicao);
+		
+		alteraStatusNotificacao(notificacaoClicada, Notificacao.lida);
+		
+		String data = notificacaoClicada.getData();
+		String remetente = notificacaoClicada.getRemetente();
+		String titulo = notificacaoClicada.getTitulo();
+		String texto = notificacaoClicada.getTexto();
+		
+		iniciaExibeNotificacao(data, remetente, titulo, texto);
 	}
 	
 	public void iniciaExibeNotificacao(String data, String remetente, String titulo, String texto) {
@@ -90,4 +98,41 @@ public class TelaNotificacoes extends Activity {
 		intent.putExtra("texto", texto);
 		startActivity(intent);
 	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	      super.onCreateContextMenu(menu, v, menuInfo);
+	      if (v.getId() == R.id.lista) {
+	          MenuInflater inflater = getMenuInflater();
+	          inflater.inflate(R.menu.menu_contexto_lista, menu);
+	      }
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		 AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+		 //long selectid = menuinfo.id; //_id from database in this case
+		 
+		 int posicaoSelecionada = menuinfo.position; //position in the adapter
+	     Notificacao notificacaoClicada = adapterListaNoticias.getItem(posicaoSelecionada);
+		 int id = item.getItemId();
+	      
+	     if (id == R.id.itemMarcarNaoLida){
+	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.naoLida);
+	    	 return true;
+	     } else if (id == R.id.itemMarcarLida){
+	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.lida);
+	    	 return true;
+	     }
+	      
+	     return super.onOptionsItemSelected(item);  
+	}
+	
+	public void alteraStatusNotificacao(Notificacao notificacaoClicada, String status){		
+		notificacaoClicada.setStatus(status);
+		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
+		notificacaoDAO.editar(notificacaoClicada);
+		adapterListaNoticias.notifyDataSetChanged();
+	}
+
 }

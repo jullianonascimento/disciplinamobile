@@ -30,5 +30,8 @@
     <string name="ordenar_por_data">Ordenar por Data</string>
     <string name="ascendente">Ascendente</string>
     <string name="descendente">Descendente</string>
+    <string name="status">Status</string>
+    <string name="marcar_nao_lida">Marcar como não lida</string>
+    <string name="marcar_lida">Marcar como lida</string>
 
 </resources>

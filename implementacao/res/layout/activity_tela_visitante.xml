@@ -16,7 +16,7 @@
         tools:ignore="MergeRootFrame" >
         
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewStatus"
             android:layout_width="240dp"
             android:layout_height="100dp"
             android:contentDescription="@null"

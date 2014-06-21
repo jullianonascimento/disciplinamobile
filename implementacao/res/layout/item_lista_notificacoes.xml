@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewRemetenteItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewTituloItem"
+        android:layout_margin="5dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/remetente"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewDataItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewRemetenteItem"
+        android:layout_alignBottom="@+id/textViewRemetenteItem"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/textViewRemetenteItem"
+        android:text="@string/data"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageViewStatus"
+        android:layout_width="33dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/textViewTituloItem"
+        android:contentDescription="@null"
+        android:src="@drawable/blank" />
+
+    <TextView
+        android:id="@+id/textViewTituloItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/imageViewStatus"
+        android:text="@string/titulo"
+        android:textSize="18sp" />
+
+</RelativeLayout>
