@@ -1,7 +1,14 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.ui.activity;
 
 import java.util.List;
 
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.R.id;
+import br.ufg.inf.es.sinoa.R.layout;
+import br.ufg.inf.es.sinoa.R.menu;
+import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.ui.adapter.AdapterListaNoticias;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

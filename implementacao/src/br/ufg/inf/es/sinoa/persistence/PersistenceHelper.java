@@ -1,5 +1,7 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.persistence;
 
+import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.dao.UsuarioDAO;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;

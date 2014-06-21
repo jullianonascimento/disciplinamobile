@@ -1,5 +1,9 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.persistence;
 
+import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.dao.UsuarioDAO;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
+import br.ufg.inf.es.sinoa.vo.Usuario;
 import android.content.Context;
 
 public class DadosFicticios {

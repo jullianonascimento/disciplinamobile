@@ -1,5 +1,8 @@
 package br.ufg.inf.es.sinoa;
 
+import br.ufg.inf.es.sinoa.persistence.DadosFicticios;
+import br.ufg.inf.es.sinoa.ui.activity.LoginActivity;
+import br.ufg.inf.es.sinoa.ui.activity.TelaVisitante;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

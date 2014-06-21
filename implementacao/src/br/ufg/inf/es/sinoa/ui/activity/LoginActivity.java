@@ -1,7 +1,13 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.ui.activity;
 
 import java.util.List;
 
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.R.id;
+import br.ufg.inf.es.sinoa.R.layout;
+import br.ufg.inf.es.sinoa.R.string;
+import br.ufg.inf.es.sinoa.dao.UsuarioDAO;
+import br.ufg.inf.es.sinoa.vo.Usuario;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;

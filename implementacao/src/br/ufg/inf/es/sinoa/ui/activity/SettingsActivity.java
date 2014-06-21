@@ -1,4 +1,4 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.ui.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,6 +16,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.R.string;
+import br.ufg.inf.es.sinoa.R.xml;
 
 import java.util.List;
 

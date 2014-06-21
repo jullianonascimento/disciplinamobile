@@ -1,4 +1,4 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.vo;
 
 public class Notificacao {
 	 

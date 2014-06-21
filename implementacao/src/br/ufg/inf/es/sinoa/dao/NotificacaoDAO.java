@@ -1,8 +1,10 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufg.inf.es.sinoa.persistence.PersistenceHelper;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

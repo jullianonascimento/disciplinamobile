@@ -1,5 +1,7 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.ui.activity;
 
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

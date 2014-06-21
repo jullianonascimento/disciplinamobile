@@ -1,7 +1,12 @@
-package br.ufg.inf.es.sinoa;
+package br.ufg.inf.es.sinoa.ui.adapter;
 
 import java.util.List;
 
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.R.drawable;
+import br.ufg.inf.es.sinoa.R.id;
+import br.ufg.inf.es.sinoa.R.layout;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;

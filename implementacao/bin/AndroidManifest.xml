@@ -23,28 +23,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.TelaUsuario"
+            android:name="br.ufg.inf.es.sinoa.ui.activity.TelaUsuario"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.LoginActivity"
+            android:name="br.ufg.inf.es.sinoa.ui.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.TelaNotificacoes"
+            android:name="br.ufg.inf.es.sinoa.ui.activity.TelaNotificacoes"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.TelaExibeNotificacao"
+            android:name="br.ufg.inf.es.sinoa.ui.activity.TelaExibeNotificacao"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.TelaVisitante"
+            android:name="br.ufg.inf.es.sinoa.ui.activity.TelaVisitante"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.ufg.inf.es.sinoa.SettingsActivity"
+            android:name="br.ufg.inf.es.sinoa.ui.activity.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

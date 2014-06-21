@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context="br.ufg.inf.es.sinoa.TelaUsuario"
+        tools:context="br.ufg.inf.es.sinoa.ui.activity.TelaUsuario"
         tools:ignore="MergeRootFrame" >
 
         <ImageView
