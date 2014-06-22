@@ -1,35 +1,66 @@
 package br.ufg.inf.es.sinoa.vo;
 
 public class Notificacao {
-	 
-    private int id;
-    private String tipo;
-    private String data;
-    private String remetente;
-    private String titulo;
-    private String texto;
-    private String status;
-    private String disciplina;
-    
-    public static String lida = "true";
-    public static String naoLida = "false";
- 
-    public Notificacao() {
- 
-    }
-     
-    public Notificacao(int id, String tipo, String data, String remetente,
-    		String titulo, String texto, String status, String disciplina) {
-        super();
-        this.setId(id);
-        this.setTipo(tipo);
-        this.setData(data);
-        this.setRemetente(remetente);
-        this.setTitulo(titulo);
-        this.setTexto(texto);
-        this.setStatus(status);
-        this.setDisciplina(disciplina);
-    }
+
+	private int id;
+	private String tipo;
+	private String data;
+	private int idRemetente;
+	private String titulo;
+	private String texto;
+	private String status;
+	private int idDisciplina;
+	private int idUsuario;
+
+	// constantes do status
+	public static String LIDA = "true";
+	public static String NAOLIDA = "false";
+
+	// constantes do tipo da notificacao
+	public static String PÚBLICA = "publica";
+	public static String COMUNICADO = "comunicado";
+	public static String NOTA_FREQUENCIA = "nota";
+	public static String AVISO_BIBLIOTECA = "biblioteca";
+	public static String AVISO_PROVA = "aviso";
+
+	// construtor do banco
+	public Notificacao(int id, String tipo, String data, int idRemetente,
+			String titulo, String texto, String status, int idDisciplina,
+			int idUsuario) {
+		this.id = id;
+		this.tipo = tipo;
+		this.data = data;
+		this.idRemetente = idRemetente;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.status = status;
+		this.idDisciplina = idDisciplina;
+		this.idUsuario = idUsuario;
+	}
+
+	public Notificacao(int id, String tipo, String data, int idRemetente,
+			String titulo, String texto, int idDisciplina, int idUsuario) {
+		this.id = id;
+		this.tipo = tipo;
+		this.data = data;
+		this.idRemetente = idRemetente;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.status = NAOLIDA;
+		this.idDisciplina = idDisciplina;
+		this.idUsuario = idUsuario;
+	}
+
+	public Notificacao(int id, String tipo, String data, int idRemetente,
+			String titulo, String texto) {
+		this.id = id;
+		this.tipo = tipo;
+		this.data = data;
+		this.idRemetente = idRemetente;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.status = NAOLIDA;
+	}
 
 	public int getId() {
 		return id;
@@ -55,12 +86,12 @@ public class Notificacao {
 		this.data = data;
 	}
 
-	public String getRemetente() {
-		return remetente;
+	public int getIdRemetente() {
+		return idRemetente;
 	}
 
-	public void setRemetente(String remetente) {
-		this.remetente = remetente;
+	public void setIdRemetente(int idRemetente) {
+		this.idRemetente = idRemetente;
 	}
 
 	public String getTitulo() {
@@ -87,18 +118,24 @@ public class Notificacao {
 		this.status = status;
 	}
 
-	public String getDisciplina() {
-		return disciplina;
+	public int getIdDisciplina() {
+		return idDisciplina;
 	}
 
-	public void setDisciplina(String disciplina) {
-		this.disciplina = disciplina;
+	public void setIdDisciplina(int idDisciplina) {
+		this.idDisciplina = idDisciplina;
 	}
- 
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 	@Override
 	public String toString() {
 		return titulo;
 	}
- 
-   
-} 
+}

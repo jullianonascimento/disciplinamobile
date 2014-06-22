@@ -51,5 +51,8 @@ public class Usuario {
 		this.curso = curso;
 	}
 
-	
+	@Override
+	public String toString() {
+		return nome;
+	}
 }

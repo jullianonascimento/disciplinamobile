@@ -53,20 +53,20 @@ public class UsuarioDAO {
 	        return usuarios;
 	    }
 	    
-	    /*
 	    public Usuario recuperarUsuarioPorMatricula(int matricula) {
 	        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_MATRICULA + " = " + matricula;
 	        Cursor cursor = dataBase.rawQuery(query, null);
 	        List<Usuario> usuarios = construirUsuarioPorCursor(cursor);
+	        Usuario usuarioEncontrado = null;
 	        
-	        if (usuarios.isEmpty()){
+	        try {
+	        	usuarioEncontrado = usuarios.get(0);
+	        } catch (Exception e) {
 	        	return null;
-	        } else {
-	        	usuarios.get(0);
 	        }
 	        
-	        return null;
-	    }*/
+	        return usuarioEncontrado;
+	    }
 	    
 	    public void deletarTodosUsuarios(){
 	    	String query = "DELETE FROM " + NOME_TABELA;

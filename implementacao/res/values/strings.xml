@@ -4,7 +4,7 @@
     <string name="app_name">SINOA</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="bem_vindo">Bem vindo ao SINOA, um sistema de notificações acadêmicas da UFG</string>
+    <string name="bem_vindo">Bem-vindo ao SINOA, um sistema de notificações acadêmicas da UFG</string>
     <string name="title_activity_tela_usuario">TelaUsuario</string>
     <string name="login">Fazer Login</string>
     <string name="noticias_publicas">Notícias Públicas</string>
@@ -33,5 +33,7 @@
     <string name="status">Status</string>
     <string name="marcar_nao_lida">Marcar como não lida</string>
     <string name="marcar_lida">Marcar como lida</string>
+    <string name="disciplinas">Ver por Disciplinas</string>
+    <string name="title_activity_tela_disciplinas">Disciplinas Matriculadas</string>
 
 </resources>

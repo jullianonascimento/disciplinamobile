@@ -1,36 +1,61 @@
 package br.ufg.inf.es.sinoa.ui.activity;
 
-import br.ufg.inf.es.sinoa.R;
-import br.ufg.inf.es.sinoa.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.dao.UsuarioDAO;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
+import br.ufg.inf.es.sinoa.vo.Usuario;
 
 public class TelaUsuario extends Activity {
+	
+	public static Usuario USUARIOLOGADO;
+	private int matriculaUsuarioLogado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_usuario);
 
+		Intent intent = getIntent();
+		matriculaUsuarioLogado = intent.getIntExtra("matricula", 0);
+		
+		atualizaMensagem(matriculaUsuarioLogado);
 	}
 	
+	private void atualizaMensagem(int matricula) {
+		UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(this);
+		Usuario usuario = usuarioDAO.recuperarUsuarioPorMatricula(matricula);
+		
+		TextView mensagemBemVindo = (TextView) findViewById(R.id.textViewBemVindoUsuario);
+		mensagemBemVindo.setText("Bem-vindo " + usuario.getNome());
+	}
+
 	public void iniciaTelaNotificacoes(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra("tipo", "prova");
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.AVISO_PROVA);
         startActivity(intent);
 	}
 	
 	public void iniciaTelaNotas(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra("tipo", "nota");
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.NOTA_FREQUENCIA);
         startActivity(intent);
 	}
 	
 	public void iniciaTelaAvisosBiblioteca(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra("tipo", "biblioteca");
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.AVISO_BIBLIOTECA);
+        startActivity(intent);
+	}
+	
+	public void iniciaTelaDisciplinas(View v){
+		Intent intent = new Intent(this, TelaDisciplinas.class);
+		intent.putExtra("matricula", matriculaUsuarioLogado);
         startActivity(intent);
 	}
 	

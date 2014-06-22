@@ -22,6 +22,14 @@
             android:contentDescription="@null"
             android:src="@drawable/sinoa_tela_usuario" />
 
+        <TextView
+            android:id="@+id/textViewBemVindoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/bem_vindo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <Button
             android:id="@+id/notificacoes"
             android:layout_width="match_parent"
@@ -45,6 +53,14 @@
             android:layout_margin="15dp"
             android:text="@string/avisos_biblioteca"
             android:onClick="iniciaTelaAvisosBiblioteca" />
+
+        <Button
+            android:id="@+id/disciplinas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/disciplinas"
+            android:onClick="iniciaTelaDisciplinas" />
 
         <Button
             android:id="@+id/configuracoes"

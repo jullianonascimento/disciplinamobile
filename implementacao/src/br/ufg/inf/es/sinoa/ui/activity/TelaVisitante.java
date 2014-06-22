@@ -1,11 +1,12 @@
 package br.ufg.inf.es.sinoa.ui.activity;
 
-import br.ufg.inf.es.sinoa.R;
-import br.ufg.inf.es.sinoa.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
 
 public class TelaVisitante extends Activity {
 
@@ -17,14 +18,14 @@ public class TelaVisitante extends Activity {
 	
 	public void iniciaTelaNoticiasPublicas(View view) {
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra("tipo", "publica");
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.PÚBLICA);
 		startActivity(intent);
 	}
 
 	
 	public void iniciaTelaComunicados(View view) {
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra("tipo", "comunicado");
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.COMUNICADO);
 		startActivity(intent);
 	}
 

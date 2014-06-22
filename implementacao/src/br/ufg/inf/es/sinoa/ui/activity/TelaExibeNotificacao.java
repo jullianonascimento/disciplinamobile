@@ -1,12 +1,10 @@
 package br.ufg.inf.es.sinoa.ui.activity;
 
-import br.ufg.inf.es.sinoa.R;
-import br.ufg.inf.es.sinoa.R.id;
-import br.ufg.inf.es.sinoa.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import br.ufg.inf.es.sinoa.R;
 
 public class TelaExibeNotificacao extends Activity {
 

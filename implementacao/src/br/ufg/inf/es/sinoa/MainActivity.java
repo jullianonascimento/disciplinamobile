@@ -17,6 +17,8 @@ public class MainActivity extends Activity {
 		
 		//colocando dados ficticios no banco
 		DadosFicticios.criaUsuariosFicticios(this);
+		DadosFicticios.criaDisciplinasFicticias(this);
+		DadosFicticios.criarRemetentesFicticios(this);
 		DadosFicticios.criaNotificacoesFicticias(this);
 	}
 

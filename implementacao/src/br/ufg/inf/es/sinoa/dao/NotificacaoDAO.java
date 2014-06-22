@@ -3,12 +3,13 @@ package br.ufg.inf.es.sinoa.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufg.inf.es.sinoa.persistence.PersistenceHelper;
-import br.ufg.inf.es.sinoa.vo.Notificacao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import br.ufg.inf.es.sinoa.persistence.PersistenceHelper;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
+import br.ufg.inf.es.sinoa.vo.Remetente;
 
 public class NotificacaoDAO {
 	 
@@ -16,19 +17,26 @@ public class NotificacaoDAO {
     public static final String COLUNA_ID = "id";
     public static final String COLUNA_TIPO = "tipo";
     public static final String COLUNA_DATA = "data";
-    public static final String COLUNA_REMETENTE = "remetente";
+    public static final String COLUNA_ID_REMETENTE = "id_remetente";
     public static final String COLUNA_TITULO = "titulo";
     public static final String COLUNA_TEXTO = "texto";
     public static final String COLUNA_STATUS = "status";
-    public static final String COLUNA_DISCIPLINA = "disciplina";
+    public static final String COLUNA_ID_DISCIPLINA = "id_disciplina";
+    public static final String COLUNA_ID_USUARIO = "id_usuario";
     
     public static final String ASCENDENTE = "ASC"; 
     public static final String DESCENDENTE = "DESC"; 
  
     public static final String SCRIPT_CRIACAO_TABELA_NOTIFICACAO = "CREATE TABLE " + NOME_TABELA + "("
             + COLUNA_ID + " INTEGER PRIMARY KEY," + COLUNA_TIPO + " TEXT," + COLUNA_DATA + " TEXT,"
-            + COLUNA_REMETENTE + " TEXT," + COLUNA_TITULO + " TEXT," + COLUNA_TEXTO + " TEXT," 
-            + COLUNA_STATUS + " TEXT," +COLUNA_DISCIPLINA + " TEXT" +")";
+            + COLUNA_ID_REMETENTE + " INTEGER," + COLUNA_TITULO + " TEXT," + COLUNA_TEXTO + " TEXT," 
+            + COLUNA_STATUS + " TEXT," + COLUNA_ID_DISCIPLINA + " INTEGER," + COLUNA_ID_USUARIO + " INTEGER," 
+            + "FOREIGN KEY(" + COLUNA_ID_REMETENTE + ") REFERENCES " 
+			+ RemetenteDAO.NOME_TABELA + "(" + RemetenteDAO.COLUNA_ID + "),"
+            + "FOREIGN KEY(" + COLUNA_ID_DISCIPLINA + ") REFERENCES " 
+			+ DisciplinaDAO.NOME_TABELA + "(" + DisciplinaDAO.COLUNA_CODIGO + "),"
+			+ "FOREIGN KEY(" + COLUNA_ID_USUARIO + ") REFERENCES " 
+			+ UsuarioDAO.NOME_TABELA + "(" + UsuarioDAO.COLUNA_MATRICULA + ") )";
  
     public static final String SCRIPT_DELECAO_TABELA =  "DROP TABLE IF EXISTS " + NOME_TABELA;
  
@@ -60,8 +68,44 @@ public class NotificacaoDAO {
         return notificacoes;
     }
     
-    public List<Notificacao> recuperarNotificacao(String tipoNotificacao, String tipoOrdenacao, String organizacao) {
+    public List<Notificacao> recuperarNotificacaoPorTipo(String tipoNotificacao, String tipoOrdenacao, String organizacao) {
         String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "'"
+        		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
+        Cursor cursor = dataBase.rawQuery(query, null);
+        List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
+ 
+        return notificacoes;
+    }
+    
+    public List<Notificacao> recuperarNotificacaoPorDisciplina(int codigoDisciplina, String tipoOrdenacao, String organizacao) {
+        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_ID_DISCIPLINA + " = " + codigoDisciplina 
+        		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
+        Cursor cursor = dataBase.rawQuery(query, null);
+        List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
+ 
+        return notificacoes;
+    }
+    
+    public List<Notificacao> recuperarNotificacaoRestricaoRemetente(String tipoNotificacao, 
+    		String tipoOrdenacao, String organizacao) {
+    	
+        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "'"
+        		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
+        Cursor cursor = dataBase.rawQuery(query, null);
+        List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
+ 
+        return notificacoes;
+    }
+    
+    public List<Notificacao> recuperarNotificacaoGenerico(int idDisciplina, int idUsuario, String tipoNotificacao, 
+    		String tipoOrdenacao, String organizacao) {
+    	
+        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " IN (" + tipoNotificacao + ")"
+        		+ " AND " + COLUNA_ID_DISCIPLINA + " = " + idDisciplina 
+        		+ " AND " + COLUNA_ID_USUARIO + " = " + idUsuario 
+        		+ " AND " + COLUNA_ID_REMETENTE + " IN (SELECT " + RemetenteDAO.COLUNA_ID + " FROM "
+        		+ RemetenteDAO.NOME_TABELA + " WHERE " + RemetenteDAO.COLUNA_ATIVO + " = " 
+        		+ "'" + Remetente.ATIVADO + "')" 
         		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
         Cursor cursor = dataBase.rawQuery(query, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
@@ -98,7 +142,6 @@ public class NotificacaoDAO {
             dataBase.close(); 
     }
  
- 
     private List<Notificacao> construirNotificacaoPorCursor(Cursor cursor) {
         List<Notificacao> notificacoes = new ArrayList<Notificacao>();
         if(cursor == null)
@@ -112,22 +155,25 @@ public class NotificacaoDAO {
                 	int indexID = cursor.getColumnIndex(COLUNA_ID);
 					int indexTipo = cursor.getColumnIndex(COLUNA_TIPO);
 					int indexData = cursor.getColumnIndex(COLUNA_DATA);
-					int indexRemetente = cursor.getColumnIndex(COLUNA_REMETENTE);
+					int indexIdRemetente = cursor.getColumnIndex(COLUNA_ID_REMETENTE);
 					int indexTitulo = cursor.getColumnIndex(COLUNA_TITULO);
 					int indexTexto = cursor.getColumnIndex(COLUNA_TEXTO);
 					int indexStatus = cursor.getColumnIndex(COLUNA_STATUS);
-					int indexDisciplina = cursor.getColumnIndex(COLUNA_DISCIPLINA);
+					int indexIdDisciplina = cursor.getColumnIndex(COLUNA_ID_DISCIPLINA);
+					int indexIdUsuario = cursor.getColumnIndex(COLUNA_ID_USUARIO);
 
 					int id = cursor.getInt(indexID);
 					String tipo = cursor.getString(indexTipo);
 					String data = cursor.getString(indexData);
 					String titulo = cursor.getString(indexTitulo);
-					String remetente = cursor.getString(indexRemetente);
+					int remetente = cursor.getInt(indexIdRemetente);
 					String texto = cursor.getString(indexTexto);
 					String status = cursor.getString(indexStatus);
-					String disciplina = cursor.getString(indexDisciplina);
+					int idDisciplina = cursor.getInt(indexIdDisciplina);
+					int idUsuario = cursor.getInt(indexIdUsuario);
  
-                    Notificacao notificacao = new Notificacao(id, tipo, data, remetente, titulo, texto, status, disciplina);
+                    Notificacao notificacao = new Notificacao(id, tipo, data, remetente, titulo, 
+                    		texto, status, idDisciplina, idUsuario);
  
                     notificacoes.add(notificacao);
  
@@ -142,13 +188,15 @@ public class NotificacaoDAO {
  
     private ContentValues gerarContentValuesNotificacao(Notificacao notificacao) {
         ContentValues values = new ContentValues();
+        values.put(COLUNA_ID, notificacao.getId());
         values.put(COLUNA_TIPO, notificacao.getTipo());
         values.put(COLUNA_DATA, notificacao.getData());
-        values.put(COLUNA_REMETENTE, notificacao.getRemetente());
+        values.put(COLUNA_ID_REMETENTE, notificacao.getIdRemetente());
         values.put(COLUNA_TITULO, notificacao.getTitulo());
         values.put(COLUNA_TEXTO, notificacao.getTexto());
         values.put(COLUNA_STATUS, notificacao.getStatus());
-        values.put(COLUNA_DISCIPLINA, notificacao.getDisciplina());
+        values.put(COLUNA_ID_DISCIPLINA, notificacao.getIdDisciplina());
+        values.put(COLUNA_ID_USUARIO, notificacao.getIdUsuario());
  
         return values;
     }

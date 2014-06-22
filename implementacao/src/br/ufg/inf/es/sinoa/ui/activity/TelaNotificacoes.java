@@ -2,13 +2,6 @@ package br.ufg.inf.es.sinoa.ui.activity;
 
 import java.util.List;
 
-import br.ufg.inf.es.sinoa.R;
-import br.ufg.inf.es.sinoa.R.id;
-import br.ufg.inf.es.sinoa.R.layout;
-import br.ufg.inf.es.sinoa.R.menu;
-import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
-import br.ufg.inf.es.sinoa.ui.adapter.AdapterListaNoticias;
-import br.ufg.inf.es.sinoa.vo.Notificacao;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +14,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
+import br.ufg.inf.es.sinoa.R;
+import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.dao.RemetenteDAO;
+import br.ufg.inf.es.sinoa.ui.adapter.AdapterListaNoticias;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
+import br.ufg.inf.es.sinoa.vo.Remetente;
 
 public class TelaNotificacoes extends Activity implements OnItemClickListener {
 	
@@ -61,10 +61,10 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
         	ordenarListaPor(NotificacaoDAO.COLUNA_DATA, NotificacaoDAO.DESCENDENTE);
             return true;
         } else if (id == R.id.remetenteAscendente) {
-        	ordenarListaPor(NotificacaoDAO.COLUNA_REMETENTE, NotificacaoDAO.ASCENDENTE);
+        	ordenarListaPor(NotificacaoDAO.COLUNA_ID_REMETENTE, NotificacaoDAO.ASCENDENTE);
             return true;
         } else if (id == R.id.remetenteDescendente) {
-        	ordenarListaPor(NotificacaoDAO.COLUNA_REMETENTE, NotificacaoDAO.DESCENDENTE);
+        	ordenarListaPor(NotificacaoDAO.COLUNA_ID_REMETENTE, NotificacaoDAO.DESCENDENTE);
             return true;
         }
 
@@ -72,29 +72,46 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
     }
 
 	public void ordenarListaPor(String tipoOrdenacao, String organizacao) {
-		Intent intent = getIntent();
-		String tipoNotificacao = intent.getStringExtra("tipo");
-				
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 		
-		notificacoes = notificacaoDAO.recuperarNotificacao(tipoNotificacao, tipoOrdenacao, organizacao);
+		Intent intent = getIntent();
+		String tipoNotificacao = intent.getStringExtra(NotificacaoDAO.COLUNA_TIPO);
 		
-		adapterListaNoticias = new AdapterListaNoticias(this, notificacoes);
-		listView.setAdapter(adapterListaNoticias);
+		if (!tipoNotificacao.equals("todas")){
+			notificacoes = notificacaoDAO.recuperarNotificacaoPorTipo(tipoNotificacao, tipoOrdenacao, organizacao);
+		} else {
+			int idDisciplina = intent.getIntExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, 0);
+			notificacoes = notificacaoDAO.recuperarNotificacaoPorDisciplina(idDisciplina, tipoOrdenacao, organizacao);
+		}
+		
+		if (notificacoes.isEmpty() || notificacoes.equals(null)){
+			Toast toast = Toast.makeText(this, "Não há notificações a serem listadas.", Toast.LENGTH_LONG);
+			toast.show();
+			finish();
+		} else {
+			adapterListaNoticias = new AdapterListaNoticias(this, notificacoes);
+			listView.setAdapter(adapterListaNoticias);
+		}
 	}
 	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int posicao, long arg3) {
 		Notificacao notificacaoClicada = adapterListaNoticias.getItem(posicao);
 		
-		alteraStatusNotificacao(notificacaoClicada, Notificacao.lida);
+		alteraStatusNotificacao(notificacaoClicada, Notificacao.LIDA);
 		
 		String data = notificacaoClicada.getData();
-		String remetente = notificacaoClicada.getRemetente();
+		
 		String titulo = notificacaoClicada.getTitulo();
 		String texto = notificacaoClicada.getTexto();
 		
-		iniciaExibeNotificacao(data, remetente, titulo, texto);
+		int idRemetente = notificacaoClicada.getIdRemetente();
+		
+		RemetenteDAO remetenteDAO = RemetenteDAO.getInstance(this);
+		Remetente remetente = remetenteDAO.recuperarRemetentePorId(idRemetente);
+		String nomeRemetente = remetente.getNome();
+		
+		iniciaExibeNotificacao(data, nomeRemetente, titulo, texto);
 	}
 	
 	public void iniciaExibeNotificacao(String data, String remetente, String titulo, String texto) {
@@ -125,10 +142,10 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 		 int id = item.getItemId();
 	      
 	     if (id == R.id.itemMarcarNaoLida){
-	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.naoLida);
+	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.NAOLIDA);
 	    	 return true;
 	     } else if (id == R.id.itemMarcarLida){
-	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.lida);
+	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.LIDA);
 	    	 return true;
 	     }
 	      
