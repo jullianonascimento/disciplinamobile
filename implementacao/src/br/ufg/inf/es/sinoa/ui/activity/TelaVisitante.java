@@ -19,6 +19,8 @@ public class TelaVisitante extends Activity {
 	public void iniciaTelaNoticiasPublicas(View view) {
 		Intent intent = new Intent(this, TelaNotificacoes.class);
 		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.PÚBLICA);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, Notificacao.AUSENTE);
 		startActivity(intent);
 	}
 
@@ -26,6 +28,8 @@ public class TelaVisitante extends Activity {
 	public void iniciaTelaComunicados(View view) {
 		Intent intent = new Intent(this, TelaNotificacoes.class);
 		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.COMUNICADO);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, Notificacao.AUSENTE);
 		startActivity(intent);
 	}
 

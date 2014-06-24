@@ -13,7 +13,6 @@ import br.ufg.inf.es.sinoa.vo.Usuario;
 
 public class TelaUsuario extends Activity {
 	
-	public static Usuario USUARIOLOGADO;
 	private int matriculaUsuarioLogado;
 
 	@Override
@@ -22,14 +21,13 @@ public class TelaUsuario extends Activity {
 		setContentView(R.layout.activity_tela_usuario);
 
 		Intent intent = getIntent();
-		matriculaUsuarioLogado = intent.getIntExtra("matricula", 0);
-		
-		atualizaMensagem(matriculaUsuarioLogado);
+		matriculaUsuarioLogado = intent.getIntExtra(UsuarioDAO.COLUNA_MATRICULA, 0);
+		atualizaMensagem();
 	}
 	
-	private void atualizaMensagem(int matricula) {
+	private void atualizaMensagem() {
 		UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(this);
-		Usuario usuario = usuarioDAO.recuperarUsuarioPorMatricula(matricula);
+		Usuario usuario = usuarioDAO.recuperarUsuarioPorMatricula(matriculaUsuarioLogado);
 		
 		TextView mensagemBemVindo = (TextView) findViewById(R.id.textViewBemVindoUsuario);
 		mensagemBemVindo.setText("Bem-vindo " + usuario.getNome());
@@ -38,29 +36,35 @@ public class TelaUsuario extends Activity {
 	public void iniciaTelaNotificacoes(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
 		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.AVISO_PROVA);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, matriculaUsuarioLogado);
         startActivity(intent);
 	}
 	
 	public void iniciaTelaNotas(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
 		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.NOTA_FREQUENCIA);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, matriculaUsuarioLogado);
         startActivity(intent);
 	}
 	
 	public void iniciaTelaAvisosBiblioteca(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
 		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.AVISO_BIBLIOTECA);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, matriculaUsuarioLogado);
         startActivity(intent);
 	}
 	
 	public void iniciaTelaDisciplinas(View v){
 		Intent intent = new Intent(this, TelaDisciplinas.class);
-		intent.putExtra("matricula", matriculaUsuarioLogado);
+		intent.putExtra(UsuarioDAO.COLUNA_MATRICULA, matriculaUsuarioLogado);
         startActivity(intent);
 	}
 	
 	public void iniciaConfiguracoes(View v){
-		Intent intent = new Intent(this, SettingsActivity.class);
+		Intent intent = new Intent(this, TelaConfiguracoes.class);
         startActivity(intent);
 	}
 

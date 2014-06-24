@@ -5,12 +5,12 @@ public class Notificacao {
 	private int id;
 	private String tipo;
 	private String data;
-	private int idRemetente;
+	private int idRemetente = AUSENTE;
 	private String titulo;
 	private String texto;
-	private String status;
-	private int idDisciplina;
-	private int idUsuario;
+	private String status = NAOLIDA;
+	private int idDisciplina = AUSENTE;
+	private int idUsuario = AUSENTE;
 
 	// constantes do status
 	public static String LIDA = "true";
@@ -22,6 +22,10 @@ public class Notificacao {
 	public static String NOTA_FREQUENCIA = "nota";
 	public static String AVISO_BIBLIOTECA = "biblioteca";
 	public static String AVISO_PROVA = "aviso";
+	public static String TODAS = "todas";
+	
+	//constante dos inteiros
+	public static int AUSENTE = 0;
 
 	// construtor do banco
 	public Notificacao(int id, String tipo, String data, int idRemetente,
@@ -46,7 +50,6 @@ public class Notificacao {
 		this.idRemetente = idRemetente;
 		this.titulo = titulo;
 		this.texto = texto;
-		this.status = NAOLIDA;
 		this.idDisciplina = idDisciplina;
 		this.idUsuario = idUsuario;
 	}
@@ -59,7 +62,6 @@ public class Notificacao {
 		this.idRemetente = idRemetente;
 		this.titulo = titulo;
 		this.texto = texto;
-		this.status = NAOLIDA;
 	}
 
 	public int getId() {

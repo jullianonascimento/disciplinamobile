@@ -13,13 +13,16 @@ import android.widget.ListView;
 import br.ufg.inf.es.sinoa.R;
 import br.ufg.inf.es.sinoa.dao.DisciplinaDAO;
 import br.ufg.inf.es.sinoa.dao.NotificacaoDAO;
+import br.ufg.inf.es.sinoa.dao.UsuarioDAO;
 import br.ufg.inf.es.sinoa.vo.Disciplina;
+import br.ufg.inf.es.sinoa.vo.Notificacao;
 
 public class TelaDisciplinas extends Activity implements OnItemClickListener {
 	
 	private ListView listView;
 	private List<Disciplina> disciplinas;
 	ArrayAdapter<Disciplina> adapter;
+	int matriculaUsuarioLogado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,8 @@ public class TelaDisciplinas extends Activity implements OnItemClickListener {
 		listView.setOnItemClickListener(this);
 		
 		Intent intent = getIntent();
-		int matricula = intent.getIntExtra("matricula", 0);
-		criarListView(matricula);
+		matriculaUsuarioLogado = intent.getIntExtra(UsuarioDAO.COLUNA_MATRICULA, 0);
+		criarListView(matriculaUsuarioLogado);
 	}
 
 	private void criarListView(int matricula) {
@@ -53,8 +56,9 @@ public class TelaDisciplinas extends Activity implements OnItemClickListener {
 
 	public void iniciaTelaNotificacoesPorDisciplina(int codigoDisciplina){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, "todas");
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.TODAS);
 		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, codigoDisciplina);
+		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, matriculaUsuarioLogado);
         startActivity(intent);
 	}
 

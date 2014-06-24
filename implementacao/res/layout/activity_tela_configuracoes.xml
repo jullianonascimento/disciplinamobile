@@ -1,0 +1,40 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewConfig"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/layoutConfiguracoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="br.ufg.inf.es.sinoa.ui.activity.TelaConfiguracoes"
+        tools:ignore="MergeRootFrame" >
+
+        <ImageView
+            android:id="@+id/imageViewConfig"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:contentDescription="@null"
+            android:src="@drawable/sinoa_tela_configuracoes" />
+
+        <Button
+            android:id="@+id/buttonOrigemRemetentes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/origem_remetentes"
+            android:onClick="iniciaTelaOrigemRemetentes" />
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/logout"
+            android:onClick="logout" />
+    </LinearLayout>
+
+</ScrollView>

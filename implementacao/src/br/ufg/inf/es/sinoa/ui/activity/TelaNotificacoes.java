@@ -76,14 +76,11 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 		
 		Intent intent = getIntent();
 		String tipoNotificacao = intent.getStringExtra(NotificacaoDAO.COLUNA_TIPO);
+		int idDisciplina = intent.getIntExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
+		int idUsuario = intent.getIntExtra(NotificacaoDAO.COLUNA_ID_USUARIO, Notificacao.AUSENTE);
 		
-		if (!tipoNotificacao.equals("todas")){
-			notificacoes = notificacaoDAO.recuperarNotificacaoPorTipo(tipoNotificacao, tipoOrdenacao, organizacao);
-		} else {
-			int idDisciplina = intent.getIntExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, 0);
-			notificacoes = notificacaoDAO.recuperarNotificacaoPorDisciplina(idDisciplina, tipoOrdenacao, organizacao);
-		}
-		
+		notificacoes = notificacaoDAO.recuperarNotificacaoGenerico(idDisciplina, idUsuario, tipoNotificacao, tipoOrdenacao, organizacao);
+				
 		if (notificacoes.isEmpty() || notificacoes.equals(null)){
 			Toast toast = Toast.makeText(this, "Não há notificações a serem listadas.", Toast.LENGTH_LONG);
 			toast.show();

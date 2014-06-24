@@ -35,5 +35,10 @@
     <string name="marcar_lida">Marcar como lida</string>
     <string name="disciplinas">Ver por Disciplinas</string>
     <string name="title_activity_tela_disciplinas">Disciplinas Matriculadas</string>
+    <string name="title_activity_tela_configuracoes">TelaConfiguracoes</string>
+    <string name="origem_remetentes">Origem dos Remetentes</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_tela_remetentes">TelaRemetentes</string>
+    <string name="selecionar_remetentes">Selecione os remetentes que você deseja receber notificações</string>
 
 </resources>

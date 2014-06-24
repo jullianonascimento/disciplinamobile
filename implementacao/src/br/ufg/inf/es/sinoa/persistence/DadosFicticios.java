@@ -55,17 +55,17 @@ public class DadosFicticios {
 	public static void criaDisciplinasFicticias(Context context) {
 
 		concorrencia = new Disciplina(5275,
-				"DESENVOLVIMENTO DE SOFTWARE CONCORRENTE",
+				"Desenvolvimento de software concorrente",
 				julliano.getMatricula());
 		mobile = new Disciplina(5277,
-				"DESENVOLVIMENTO DE SOFTWARE P/ DISPOSITIVOS UBÍQUO",
+				"Desenvolvimento de software para dispositivos móveis",
 				julliano.getMatricula());
-		web = new Disciplina(5278, "DESENVOLVIMENTO DE SOFTWARE PARA A WEB",
+		web = new Disciplina(5278, "Desenvolvimento de software para a web",
 				julliano.getMatricula());
 		persistencia = new Disciplina(5276,
-				"DESENVOLVIMENTO DE SOFTWARE PARA PERSISTÊNCIA",
+				"Desenvolvimento de software para persistência",
 				julliano.getMatricula());
-		integracao = new Disciplina(5280, "INTEGRAÇÃO DE APLICAÇÕES",
+		integracao = new Disciplina(5280, "Integração de Aplicações",
 				julliano.getMatricula());
 
 		DisciplinaDAO disciplinaDAO = DisciplinaDAO.getInstance(context);
@@ -81,21 +81,21 @@ public class DadosFicticios {
 
 	public static void criarRemetentesFicticios(Context context) {
 
-		biblioteca = new Remetente(0, Remetente.BIBLIOTECA, Remetente.ATIVADO,
+		biblioteca = new Remetente(10, Remetente.BIBLIOTECA, Remetente.ATIVADO,
 				julliano.getMatricula());
-		coordenador = new Remetente(1, Remetente.COORDENADOR_CURSO,
+		coordenador = new Remetente(11, Remetente.COORDENADOR_CURSO,
 				Remetente.ATIVADO, julliano.getMatricula());
-		direcao = new Remetente(2, Remetente.DIRECAO_CURSO, Remetente.ATIVADO,
+		direcao = new Remetente(12, Remetente.DIRECAO_CURSO, Remetente.ATIVADO,
 				julliano.getMatricula());
-		proReitoria = new Remetente(3, Remetente.PRO_REITORIA,
+		proReitoria = new Remetente(13, Remetente.PRO_REITORIA,
 				Remetente.ATIVADO, julliano.getMatricula());
-		reitoria = new Remetente(4, Remetente.REITORIA, Remetente.ATIVADO,
+		reitoria = new Remetente(14, Remetente.REITORIA, Remetente.DESATIVADO,
 				julliano.getMatricula());
 
 		// Docentes
-		professorAlfredo = new Remetente(5, "Alfredo", Remetente.ATIVADO,
+		professorAlfredo = new Remetente(15, "Alfredo", Remetente.ATIVADO,
 				110245);
-		professoraMarcia = new Remetente(6, "Márcia", Remetente.ATIVADO, 110245);
+		professoraMarcia = new Remetente(16, "Márcia", Remetente.ATIVADO, 110245);
 
 		RemetenteDAO remetenteDAO = RemetenteDAO.getInstance(context);
 
@@ -150,6 +150,7 @@ public class DadosFicticios {
 				"Vencimento do empréstimo do Livro Engenharia de Software - 9a Edição",
 				"Informamos que o empréstimo do livro Engenharia de Software - 9a Edição "
 						+ "2011 - Ian Sommerville tem sua data limite na próxima terça-feira dia 10/06/2014.");
+		avisoBiblioteca.setIdUsuario(julliano.getMatricula());
 		avisoProvaIntegracao = new Notificacao(
 				5,
 				Notificacao.AVISO_PROVA,

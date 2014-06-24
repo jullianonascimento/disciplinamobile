@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import br.ufg.inf.es.sinoa.persistence.PersistenceHelper;
 import br.ufg.inf.es.sinoa.vo.Notificacao;
 import br.ufg.inf.es.sinoa.vo.Remetente;
@@ -69,7 +70,10 @@ public class NotificacaoDAO {
     }
     
     public List<Notificacao> recuperarNotificacaoPorTipo(String tipoNotificacao, String tipoOrdenacao, String organizacao) {
-        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "'"
+            	
+    	//String queryTipoNotificacao = "SELECT tipo FROM Notificacao WHERE id_disciplina <> 0"; // recupera todos os valores de tipo que tem disciplina
+    	
+    	String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " IN (" + tipoNotificacao + ")"
         		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
         Cursor cursor = dataBase.rawQuery(query, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
@@ -86,10 +90,10 @@ public class NotificacaoDAO {
         return notificacoes;
     }
     
-    public List<Notificacao> recuperarNotificacaoRestricaoRemetente(String tipoNotificacao, 
-    		String tipoOrdenacao, String organizacao) {
-    	
-        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "'"
+    public List<Notificacao> recuperarNotificacaoPorTipoDisciplina(String tipoNotificacao, int codigoDisciplina, String tipoOrdenacao, String organizacao) {
+        String query = "SELECT * FROM " + NOME_TABELA 
+        		+ " WHERE " + COLUNA_TIPO + " = '" + tipoNotificacao + "' AND "
+        		+ COLUNA_ID_DISCIPLINA + " = " + codigoDisciplina 
         		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
         Cursor cursor = dataBase.rawQuery(query, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
@@ -99,14 +103,41 @@ public class NotificacaoDAO {
     
     public List<Notificacao> recuperarNotificacaoGenerico(int idDisciplina, int idUsuario, String tipoNotificacao, 
     		String tipoOrdenacao, String organizacao) {
-    	
-        String query = "SELECT * FROM " + NOME_TABELA + " WHERE " + COLUNA_TIPO + " IN (" + tipoNotificacao + ")"
-        		+ " AND " + COLUNA_ID_DISCIPLINA + " = " + idDisciplina 
-        		+ " AND " + COLUNA_ID_USUARIO + " = " + idUsuario 
-        		+ " AND " + COLUNA_ID_REMETENTE + " IN (SELECT " + RemetenteDAO.COLUNA_ID + " FROM "
-        		+ RemetenteDAO.NOME_TABELA + " WHERE " + RemetenteDAO.COLUNA_ATIVO + " = " 
-        		+ "'" + Remetente.ATIVADO + "')" 
-        		+ " ORDER BY " + tipoOrdenacao + " " + organizacao;
+    	/*    	                 
+         query = "SELECT * FROM Notificacao "
+          		+ "WHERE "
+          		+ "tipo IN ('aviso') AND "
+          		+ "id_disciplina IN (SELECT codigo FROM Disciplina WHERE id_usuario = 110245) AND "
+          		+ "id_remetente IN (SELECT id FROM Remetente WHERE ativo = 'true')  "
+          		+ "ORDER BY id ASC;";*/
+         
+    	String querySelectAll = "SELECT * FROM " + NOME_TABELA + " WHERE ";
+        
+    	 if (tipoNotificacao.equals(Notificacao.TODAS)){
+        	 tipoNotificacao = "nota','aviso";
+         }
+         
+         String queryTipo =  COLUNA_TIPO + " IN ('" + tipoNotificacao + "')  ";
+         
+         String queryIdDisciplina = " AND " + COLUNA_ID_DISCIPLINA + " IN (" + idDisciplina + ") ";
+         
+         if (idDisciplina == Notificacao.AUSENTE){
+        	 queryIdDisciplina = "";
+        	 
+         }
+         
+         String queryRemetenteAtivo = "SELECT "+RemetenteDAO.COLUNA_ID+" FROM "+RemetenteDAO.NOME_TABELA+" WHERE "+RemetenteDAO.COLUNA_ATIVO+" = '"+Remetente.ATIVADO+"'";
+         String queryIdRemetente = " AND " + COLUNA_ID_REMETENTE + " IN (" + queryRemetenteAtivo + ")";
+         
+         if (idUsuario == Notificacao.AUSENTE){
+        	 queryIdRemetente = "";
+         }
+         
+         String orderBy = " ORDER BY " + tipoOrdenacao + " " + organizacao;
+         
+        String query = querySelectAll + queryTipo + queryIdDisciplina + queryIdRemetente + orderBy;
+                 
+        Log.i("query", query);
         Cursor cursor = dataBase.rawQuery(query, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
  

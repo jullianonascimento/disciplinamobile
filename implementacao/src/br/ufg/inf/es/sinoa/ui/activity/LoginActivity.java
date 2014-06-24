@@ -93,7 +93,7 @@ public class LoginActivity extends Activity {
 	
 	public void iniciaTelaUsuario(int matricula) {
         Intent intent = new Intent(this, TelaUsuario.class);
-        intent.putExtra("matricula", matricula);
+        intent.putExtra(UsuarioDAO.COLUNA_MATRICULA, matricula);
         startActivity(intent);
     }
 
@@ -219,20 +219,6 @@ public class LoginActivity extends Activity {
 			} catch (InterruptedException e) {
 				return false;
 			}
-			
-			/*for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
-			
-			UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(LoginActivity.this);
-			Log.i("login", " antes de usuario recuperado ");
-			Usuario usuarioRecuperado = usuarioDAO.recuperarUsuarioPorMatricula(Integer.parseInt(mEmail));
-			Log.i("login", "usuario recuperado " + usuarioRecuperado.getNome());
-			*/
 			
 			try {
 				UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(LoginActivity.this);
