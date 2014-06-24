@@ -124,7 +124,7 @@ public class DadosFicticios {
 		vestibular = new Notificacao(
 				1,
 				Notificacao.PÚBLICA,
-				"28/05/2014",
+				"02/06/2014",
 				proReitoria.getId(),
 				"Provas da segunda etapa do Processo Seletivo 2014-2",
 				"O processo seletivo 2014-2 terá suas provas da segunda etapa realizadas nos dias 8 e 9 de junho "

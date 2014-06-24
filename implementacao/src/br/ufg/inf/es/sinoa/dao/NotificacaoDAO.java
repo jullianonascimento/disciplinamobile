@@ -103,21 +103,22 @@ public class NotificacaoDAO {
     
     public List<Notificacao> recuperarNotificacaoGenerico(int idDisciplina, int idUsuario, String tipoNotificacao, 
     		String tipoOrdenacao, String organizacao) {
-    	/*    	                 
-         query = "SELECT * FROM Notificacao "
-          		+ "WHERE "
-          		+ "tipo IN ('aviso') AND "
-          		+ "id_disciplina IN (SELECT codigo FROM Disciplina WHERE id_usuario = 110245) AND "
-          		+ "id_remetente IN (SELECT id FROM Remetente WHERE ativo = 'true')  "
-          		+ "ORDER BY id ASC;";*/
-         
-    	String querySelectAll = "SELECT * FROM " + NOME_TABELA + " WHERE ";
+    	    	                 
+        /*String queryEspecific = "SELECT Notificacao.id,tipo,data,id_remetente,titulo,texto,status,id_disciplina,Notificacao.id_usuario,nome "
+        		+ "FROM Notificacao,Remetente "
+          		+ "WHERE Notificacao.id_remetente = Remetente.id "
+          		+ "AND tipo IN ('publica') "
+          		+ "ORDER BY nome ASC;";*/
+        
+    	String querySelect = "SELECT Notificacao.id,tipo,data,id_remetente,titulo,texto,status,id_disciplina,Notificacao.id_usuario,nome "
+    			+ "FROM " + NOME_TABELA + "," +RemetenteDAO.NOME_TABELA+ " "
+    			+ "WHERE " +NOME_TABELA+"."+COLUNA_ID_REMETENTE+ " = " +RemetenteDAO.NOME_TABELA+ "." +RemetenteDAO.COLUNA_ID+ " ";
         
     	 if (tipoNotificacao.equals(Notificacao.TODAS)){
         	 tipoNotificacao = "nota','aviso";
          }
          
-         String queryTipo =  COLUNA_TIPO + " IN ('" + tipoNotificacao + "')  ";
+         String queryTipo = " AND " + COLUNA_TIPO + " IN ('" + tipoNotificacao + "')  ";
          
          String queryIdDisciplina = " AND " + COLUNA_ID_DISCIPLINA + " IN (" + idDisciplina + ") ";
          
@@ -135,10 +136,10 @@ public class NotificacaoDAO {
          
          String orderBy = " ORDER BY " + tipoOrdenacao + " " + organizacao;
          
-        String query = querySelectAll + queryTipo + queryIdDisciplina + queryIdRemetente + orderBy;
+        String finalQuery = querySelect + queryTipo + queryIdDisciplina + queryIdRemetente + orderBy;
                  
-        Log.i("query", query);
-        Cursor cursor = dataBase.rawQuery(query, null);
+        Log.i("query", finalQuery);
+        Cursor cursor = dataBase.rawQuery(finalQuery, null);
         List<Notificacao> notificacoes = construirNotificacaoPorCursor(cursor);
  
         return notificacoes;
@@ -195,7 +196,7 @@ public class NotificacaoDAO {
 
 					int id = cursor.getInt(indexID);
 					String tipo = cursor.getString(indexTipo);
-					String data = cursor.getString(indexData);
+					String data = new StringBuilder(cursor.getString(indexData)).reverse().toString();
 					String titulo = cursor.getString(indexTitulo);
 					int remetente = cursor.getInt(indexIdRemetente);
 					String texto = cursor.getString(indexTexto);
@@ -221,7 +222,7 @@ public class NotificacaoDAO {
         ContentValues values = new ContentValues();
         values.put(COLUNA_ID, notificacao.getId());
         values.put(COLUNA_TIPO, notificacao.getTipo());
-        values.put(COLUNA_DATA, notificacao.getData());
+        values.put(COLUNA_DATA, new StringBuilder(notificacao.getData()).reverse().toString()); // a data salva invertida facilita a ordenação
         values.put(COLUNA_ID_REMETENTE, notificacao.getIdRemetente());
         values.put(COLUNA_TITULO, notificacao.getTitulo());
         values.put(COLUNA_TEXTO, notificacao.getTexto());

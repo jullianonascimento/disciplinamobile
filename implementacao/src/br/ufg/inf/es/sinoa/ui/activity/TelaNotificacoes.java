@@ -41,7 +41,7 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 	}
 	
 	private void criarListView() {
-		ordenarListaPor(NotificacaoDAO.COLUNA_ID, NotificacaoDAO.ASCENDENTE);
+		ordenarListaPor(NotificacaoDAO.NOME_TABELA+"."+NotificacaoDAO.COLUNA_ID, NotificacaoDAO.ASCENDENTE);
 	}
 	
 	@Override
@@ -61,10 +61,10 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
         	ordenarListaPor(NotificacaoDAO.COLUNA_DATA, NotificacaoDAO.DESCENDENTE);
             return true;
         } else if (id == R.id.remetenteAscendente) {
-        	ordenarListaPor(NotificacaoDAO.COLUNA_ID_REMETENTE, NotificacaoDAO.ASCENDENTE);
+        	ordenarListaPor(RemetenteDAO.COLUNA_NOME, NotificacaoDAO.ASCENDENTE);
             return true;
         } else if (id == R.id.remetenteDescendente) {
-        	ordenarListaPor(NotificacaoDAO.COLUNA_ID_REMETENTE, NotificacaoDAO.DESCENDENTE);
+        	ordenarListaPor(RemetenteDAO.COLUNA_NOME, NotificacaoDAO.DESCENDENTE);
             return true;
         }
 
