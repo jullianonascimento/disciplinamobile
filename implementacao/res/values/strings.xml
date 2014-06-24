@@ -42,5 +42,6 @@
     <string name="selecionar_remetentes">Selecione os remetentes que você deseja receber notificações</string>
     <string name="pesquisar">Pesquisar</string>
     <string name="ok">OK</string>
+    <string name="excluir">Excluir notificação</string>
 
 </resources>

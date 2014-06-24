@@ -150,6 +150,9 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 	     } else if (id == R.id.itemMarcarLida){
 	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.LIDA);
 	    	 return true;
+	     } else if (id == R.id.itemExcluir){
+	    	 excluir(notificacaoClicada);
+	    	 return true;
 	     }
 	      
 	     return super.onOptionsItemSelected(item);  
@@ -160,6 +163,19 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 		notificacaoDAO.editar(notificacaoClicada);
 		adapterListaNoticias.notifyDataSetChanged();
+	}
+	
+	public void excluir(Notificacao notificacaoClicada){
+		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
+		notificacaoDAO.deletar(notificacaoClicada); //apaga do banco
+		adapterListaNoticias.removeItem(notificacaoClicada); //apaga da view
+		adapterListaNoticias.notifyDataSetChanged();
+		
+		if (notificacoes.isEmpty() || notificacoes.equals(null)){
+			Toast toast = Toast.makeText(this, "Não há notificações a serem listadas.", Toast.LENGTH_LONG);
+			toast.show();
+			finish();
+		}
 	}
 	
 	public void alertDialogPesquisar(){

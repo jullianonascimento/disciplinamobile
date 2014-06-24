@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import br.ufg.inf.es.sinoa.R;
 import br.ufg.inf.es.sinoa.dao.RemetenteDAO;
-import br.ufg.inf.es.sinoa.ui.activity.TelaNotificacoes;
 import br.ufg.inf.es.sinoa.vo.Notificacao;
 import br.ufg.inf.es.sinoa.vo.Remetente;
 
@@ -48,6 +47,10 @@ public class AdapterListaNoticias extends BaseAdapter {
 	@Override
 	public long getItemId(int position) {
 		return getItem(position).getId();
+	}
+	
+	public void removeItem(Notificacao notificacao){
+		itens.remove(notificacao);
 	}
 
 	@Override
