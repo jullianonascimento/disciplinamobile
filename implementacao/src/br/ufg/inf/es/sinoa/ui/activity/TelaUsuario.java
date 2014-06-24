@@ -35,7 +35,7 @@ public class TelaUsuario extends Activity {
 
 	public void iniciaTelaNotificacoes(View v){
 		Intent intent = new Intent(this, TelaNotificacoes.class);
-		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.AVISO_PROVA);
+		intent.putExtra(NotificacaoDAO.COLUNA_TIPO, Notificacao.AVISO);
 		intent.putExtra(NotificacaoDAO.COLUNA_ID_DISCIPLINA, Notificacao.AUSENTE);
 		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, matriculaUsuarioLogado);
         startActivity(intent);

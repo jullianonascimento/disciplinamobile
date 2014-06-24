@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import br.ufg.inf.es.sinoa.R;
 import br.ufg.inf.es.sinoa.dao.RemetenteDAO;
+import br.ufg.inf.es.sinoa.ui.activity.TelaNotificacoes;
 import br.ufg.inf.es.sinoa.vo.Notificacao;
 import br.ufg.inf.es.sinoa.vo.Remetente;
 
@@ -26,6 +28,12 @@ public class AdapterListaNoticias extends BaseAdapter {
         mInflater = LayoutInflater.from(context);
         this.context = context;
     }
+
+	public AdapterListaNoticias(TextWatcher textWatcher,
+			List<Notificacao> notificacoesPesquisa) {
+		this.itens = notificacoesPesquisa;
+        mInflater = LayoutInflater.from(context);
+	}
 
 	@Override
 	public int getCount() {

@@ -12,6 +12,7 @@
             <item android:id="@+id/dataDescendente" android:title="@string/descendente"/>
         </menu>
     </item>
+    <item android:id="@+id/pesquisar" android:title="@string/pesquisar"></item>
     
 
 </menu>

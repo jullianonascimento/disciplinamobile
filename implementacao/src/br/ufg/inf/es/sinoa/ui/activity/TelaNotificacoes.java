@@ -3,6 +3,8 @@ package br.ufg.inf.es.sinoa.ui.activity;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.ufg.inf.es.sinoa.R;
@@ -36,7 +39,7 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 		listView = (ListView) findViewById(R.id.lista);
 		listView.setOnItemClickListener(this);
 		registerForContextMenu(listView);
-		
+				
 		criarListView();
 	}
 	
@@ -66,6 +69,9 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
         } else if (id == R.id.remetenteDescendente) {
         	ordenarListaPor(RemetenteDAO.COLUNA_NOME, NotificacaoDAO.DESCENDENTE);
             return true;
+        } else if (id == R.id.pesquisar) {
+        	alertDialogPesquisar();
+        	return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -154,6 +160,49 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(this);
 		notificacaoDAO.editar(notificacaoClicada);
 		adapterListaNoticias.notifyDataSetChanged();
+	}
+	
+	public void alertDialogPesquisar(){
+		final EditText input = new EditText(this);
+
+		new AlertDialog.Builder(this)
+		    .setTitle("Pesquisar")
+		    .setMessage("Digite um título para localizar uma notificação:")
+		    .setView(input)
+		    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int whichButton) {
+		             pesquisar(input.getText().toString()); 
+		         }
+		    })
+		    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int whichButton) {
+		             // Do nothing.
+		         }
+		    }).show();
+	}
+	
+	public void pesquisar(String texto){
+		int textlength = texto.length();
+		List<Notificacao> pesquisa = notificacoes;
+		Notificacao[] arrayNotificacoes = notificacoes.toArray(new Notificacao[notificacoes.size()]);
+        pesquisa.clear();
+ 
+        for (int i = 0; i < arrayNotificacoes.length; i++ ) {
+            if (textlength <= arrayNotificacoes[i].getTitulo().length()) {
+                if (texto.equalsIgnoreCase((String)arrayNotificacoes[i].getTitulo().subSequence(0, textlength))) {
+                	pesquisa.add(arrayNotificacoes[i]);
+                }
+            }
+        }
+        
+        if (pesquisa.isEmpty() || pesquisa.equals(null)){
+			Toast toast = Toast.makeText(this, "Não há notificações a serem listadas.", Toast.LENGTH_LONG);
+			toast.show();
+			finish();
+		} else {
+	        adapterListaNoticias = new AdapterListaNoticias(this, pesquisa);
+			listView.setAdapter(adapterListaNoticias);
+		}
 	}
 
 }

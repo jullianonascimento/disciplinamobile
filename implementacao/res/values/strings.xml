@@ -40,5 +40,7 @@
     <string name="logout">Logout</string>
     <string name="title_activity_tela_remetentes">TelaRemetentes</string>
     <string name="selecionar_remetentes">Selecione os remetentes que você deseja receber notificações</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="ok">OK</string>
 
 </resources>

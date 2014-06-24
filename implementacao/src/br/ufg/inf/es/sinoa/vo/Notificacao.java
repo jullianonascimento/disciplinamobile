@@ -21,7 +21,7 @@ public class Notificacao {
 	public static String COMUNICADO = "comunicado";
 	public static String NOTA_FREQUENCIA = "nota";
 	public static String AVISO_BIBLIOTECA = "biblioteca";
-	public static String AVISO_PROVA = "aviso";
+	public static String AVISO = "aviso";
 	public static String TODAS = "todas";
 	
 	//constante dos inteiros
@@ -39,6 +39,17 @@ public class Notificacao {
 		this.texto = texto;
 		this.status = status;
 		this.idDisciplina = idDisciplina;
+		this.idUsuario = idUsuario;
+	}
+	
+	public Notificacao(int id, String tipo, String data, int idRemetente,
+			String titulo, String texto, int idUsuario) {
+		this.id = id;
+		this.tipo = tipo;
+		this.data = data;
+		this.idRemetente = idRemetente;
+		this.titulo = titulo;
+		this.texto = texto;
 		this.idUsuario = idUsuario;
 	}
 

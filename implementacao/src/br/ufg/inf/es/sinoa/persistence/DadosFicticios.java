@@ -35,6 +35,7 @@ public class DadosFicticios {
 	private static Notificacao notaConcorrencia;
 	private static Notificacao avisoBiblioteca;
 	private static Notificacao avisoProvaIntegracao;
+	private static Notificacao avisoCracha;
 
 	public static void criaUsuariosFicticios(Context context) {
 
@@ -149,17 +150,26 @@ public class DadosFicticios {
 				biblioteca.getId(),
 				"Vencimento do empréstimo do Livro Engenharia de Software - 9a Edição",
 				"Informamos que o empréstimo do livro Engenharia de Software - 9a Edição "
-						+ "2011 - Ian Sommerville tem sua data limite na próxima terça-feira dia 10/06/2014.");
-		avisoBiblioteca.setIdUsuario(julliano.getMatricula());
+						+ "2011 - Ian Sommerville tem sua data limite na próxima terça-feira dia 10/06/2014." 
+						, julliano.getMatricula());
 		avisoProvaIntegracao = new Notificacao(
 				5,
-				Notificacao.AVISO_PROVA,
+				Notificacao.AVISO,
 				"01/06/2014",
 				professorAlfredo.getId(),
 				"Prova 2 de Integração de Aplicações chegando",
 				"Este aviso é para lembrá-lo que a primeira prova de Integração de Aplicações"
 						+ " acontecerá na próxima segunda-feira dia 09/06/2014.",
 				integracao.getCodigo(), julliano.getMatricula());
+		avisoCracha = new Notificacao(
+				6,
+				Notificacao.AVISO,
+				"10/06/2014",
+				coordenador.getId(),
+				"Crachás dos alunos de Engenharia de Software",
+				"Alunos do curso de Engenharia de Software, chegaram alguns crachás, caso "
+				+ "você ainda não pegou compareça na secretaria para verificar se o seu esta pronto. ",
+				 julliano.getMatricula());
 
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(context);
 
@@ -171,6 +181,7 @@ public class DadosFicticios {
 		notificacaoDAO.salvar(notaConcorrencia);
 		notificacaoDAO.salvar(avisoBiblioteca);
 		notificacaoDAO.salvar(avisoProvaIntegracao);
+		notificacaoDAO.salvar(avisoCracha);
 
 		// notificacaoDAO.fecharConexao();
 	}
