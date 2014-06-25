@@ -43,5 +43,6 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="ok">OK</string>
     <string name="excluir">Excluir notificação</string>
+    <string name="sair">Sair</string>
 
 </resources>

@@ -32,5 +32,4 @@ public class TelaVisitante extends Activity {
 		intent.putExtra(NotificacaoDAO.COLUNA_ID_USUARIO, Notificacao.AUSENTE);
 		startActivity(intent);
 	}
-
 }

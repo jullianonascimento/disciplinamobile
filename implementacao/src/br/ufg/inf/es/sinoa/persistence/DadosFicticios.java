@@ -13,7 +13,6 @@ import br.ufg.inf.es.sinoa.vo.Usuario;
 public class DadosFicticios {
 
 	private static Usuario julliano;
-	private static Usuario rafael;
 
 	private static Disciplina concorrencia;
 	private static Disciplina mobile;
@@ -36,21 +35,19 @@ public class DadosFicticios {
 	private static Notificacao avisoBiblioteca;
 	private static Notificacao avisoProvaIntegracao;
 	private static Notificacao avisoCracha;
+	private static Notificacao avisoReitoria;
 
 	public static void criaUsuariosFicticios(Context context) {
 
 		julliano = new Usuario(110245, "Julliano Rosa Nascimento",
 				"jullianonascimento@inf.ufg.br", "admin",
 				"Engenharia de Software");
-		rafael = new Usuario(127141, "Rafael Dias Correa",
-				"faelcorrea49@gmail.com", "123456", "Matemática");
 
 		UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(context);
-
-		usuarioDAO.deletarTodosUsuarios();
-
-		usuarioDAO.salvar(julliano);
-		usuarioDAO.salvar(rafael);
+		
+		if (usuarioDAO.recuperarTodos().isEmpty()){
+			usuarioDAO.salvar(julliano);
+		}
 	}
 
 	public static void criaDisciplinasFicticias(Context context) {
@@ -71,13 +68,13 @@ public class DadosFicticios {
 
 		DisciplinaDAO disciplinaDAO = DisciplinaDAO.getInstance(context);
 
-		disciplinaDAO.deletarTodasDisciplinas();
-
-		disciplinaDAO.salvar(concorrencia);
-		disciplinaDAO.salvar(mobile);
-		disciplinaDAO.salvar(web);
-		disciplinaDAO.salvar(persistencia);
-		disciplinaDAO.salvar(integracao);
+		if (disciplinaDAO.recuperarTodas().isEmpty()){
+			disciplinaDAO.salvar(concorrencia);
+			disciplinaDAO.salvar(mobile);
+			disciplinaDAO.salvar(web);
+			disciplinaDAO.salvar(persistencia);
+			disciplinaDAO.salvar(integracao);
+		}
 	}
 
 	public static void criarRemetentesFicticios(Context context) {
@@ -100,15 +97,15 @@ public class DadosFicticios {
 
 		RemetenteDAO remetenteDAO = RemetenteDAO.getInstance(context);
 
-		remetenteDAO.deletarTodosRemetentes();
-
-		remetenteDAO.salvar(biblioteca);
-		remetenteDAO.salvar(coordenador);
-		remetenteDAO.salvar(direcao);
-		remetenteDAO.salvar(proReitoria);
-		remetenteDAO.salvar(reitoria);
-		remetenteDAO.salvar(professorAlfredo);
-		remetenteDAO.salvar(professoraMarcia);
+		if (remetenteDAO.recuperarTodos().isEmpty()){
+			remetenteDAO.salvar(biblioteca);
+			remetenteDAO.salvar(coordenador);
+			remetenteDAO.salvar(direcao);
+			remetenteDAO.salvar(proReitoria);
+			remetenteDAO.salvar(reitoria);
+			remetenteDAO.salvar(professorAlfredo);
+			remetenteDAO.salvar(professoraMarcia);
+		}
 	}
 
 	public static void criaNotificacoesFicticias(Context context) {
@@ -170,20 +167,30 @@ public class DadosFicticios {
 				"Alunos do curso de Engenharia de Software, chegaram alguns crachás, caso "
 				+ "você ainda não pegou compareça na secretaria para verificar se o seu esta pronto. ",
 				 julliano.getMatricula());
+		avisoReitoria = new Notificacao(
+				7,
+				Notificacao.AVISO,
+				"11/06/2014",
+				reitoria.getId(),
+				"Certificados de Participação do X CONPEEX",
+				"Os certificados de Participação já estão publicados e foram enviados para o e-mail "
+				+ "cadastrado durante a inscrição. Mais informações acesse "
+				+ "http://eventos.ufg.br/SIEC/portalproec/sites/gerar_site.php?ID_SITE=7201",
+				 julliano.getMatricula());
 
 		NotificacaoDAO notificacaoDAO = NotificacaoDAO.getInstance(context);
 
-		notificacaoDAO.deletarTodasNotificacoes();
+		if (notificacaoDAO.recuperarTodas().isEmpty()){
+			notificacaoDAO.salvar(preenchimento);
+			notificacaoDAO.salvar(vestibular);
+			notificacaoDAO.salvar(comunicadoLocalProva);
+			notificacaoDAO.salvar(notaConcorrencia);
+			notificacaoDAO.salvar(avisoBiblioteca);
+			notificacaoDAO.salvar(avisoProvaIntegracao);
+			notificacaoDAO.salvar(avisoCracha);
+			notificacaoDAO.salvar(avisoReitoria);
+		}
 
-		notificacaoDAO.salvar(preenchimento);
-		notificacaoDAO.salvar(vestibular);
-		notificacaoDAO.salvar(comunicadoLocalProva);
-		notificacaoDAO.salvar(notaConcorrencia);
-		notificacaoDAO.salvar(avisoBiblioteca);
-		notificacaoDAO.salvar(avisoProvaIntegracao);
-		notificacaoDAO.salvar(avisoCracha);
-
-		// notificacaoDAO.fecharConexao();
 	}
 
 }

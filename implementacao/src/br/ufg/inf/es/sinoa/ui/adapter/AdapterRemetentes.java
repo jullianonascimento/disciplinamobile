@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import br.ufg.inf.es.sinoa.R;
 import br.ufg.inf.es.sinoa.vo.Remetente;
@@ -17,12 +18,10 @@ public class AdapterRemetentes extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<Remetente> itens;
-	private Context context;
 
 	public AdapterRemetentes(Context context, List<Remetente> itens) {
 		this.itens = itens;
 		mInflater = LayoutInflater.from(context);
-		this.context = context;
 	}
 
 	@Override
@@ -50,13 +49,13 @@ public class AdapterRemetentes extends BaseAdapter {
 		
 		if (remetente.getAtivo().equals(Remetente.ATIVADO)) {
 			textViewRemetente.setTypeface(null, Typeface.BOLD);
+			((ImageView) view.findViewById(R.id.imageViewSino)).setImageResource(R.drawable.sinoa_sino_remetente);
 		} else {
 			textViewRemetente.setTextColor(Color.GRAY);
+			((ImageView) view.findViewById(R.id.imageViewSino)).setImageResource(R.drawable.blank);
 		}
 		
 		return view;
 	}
-
-	
 
 }

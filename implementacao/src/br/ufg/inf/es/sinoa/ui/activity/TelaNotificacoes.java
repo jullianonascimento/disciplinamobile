@@ -138,7 +138,6 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		 AdapterView.AdapterContextMenuInfo menuinfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		 //long selectid = menuinfo.id; //_id from database in this case
 		 
 		 int posicaoSelecionada = menuinfo.position; //position in the adapter
 	     Notificacao notificacaoClicada = adapterListaNoticias.getItem(posicaoSelecionada);
@@ -151,7 +150,7 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 	    	 alteraStatusNotificacao(notificacaoClicada, Notificacao.LIDA);
 	    	 return true;
 	     } else if (id == R.id.itemExcluir){
-	    	 excluir(notificacaoClicada);
+	    	 confirmaExclusao(notificacaoClicada);
 	    	 return true;
 	     }
 	      
@@ -177,6 +176,22 @@ public class TelaNotificacoes extends Activity implements OnItemClickListener {
 			finish();
 		}
 	}
+	
+	public void confirmaExclusao(final Notificacao notificacao){
+		
+		new AlertDialog.Builder(this)
+	    .setTitle("Excluir Notificação")
+	    .setMessage("Deseja excluir a notificação? \n"
+	    		+ "Esta ação não pode ser revertida.")
+	    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+	         public void onClick(DialogInterface dialog, int whichButton) {
+	             excluir(notificacao);
+	         }
+	    })
+	    .setNegativeButton("Não", null).show();
+		
+	}
+	
 	
 	public void alertDialogPesquisar(){
 		final EditText input = new EditText(this);

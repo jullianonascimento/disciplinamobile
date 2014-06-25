@@ -39,7 +39,6 @@ public class TelaDisciplinas extends Activity implements OnItemClickListener {
 
 	private void criarListView(int matricula) {
 		DisciplinaDAO disciplinaDAO = DisciplinaDAO.getInstance(this);
-		
 		disciplinas = disciplinaDAO.recuperarDisciplinasPorMatricula(matricula);
 		
 		adapter = new ArrayAdapter<Disciplina>(this, android.R.layout.simple_list_item_1, disciplinas);

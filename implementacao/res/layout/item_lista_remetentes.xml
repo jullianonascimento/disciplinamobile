@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLayout1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="15dp"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textViewRemetenteLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
         android:text="@string/remetente"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageViewSino"
+        android:layout_width="33dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textViewRemetenteLista"
+        android:layout_margin="10dp"
+        android:contentDescription="@null"
+        android:src="@drawable/sinoa_sino_remetente" />
+
+</RelativeLayout>

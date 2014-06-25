@@ -28,9 +28,9 @@ public class TelaUsuario extends Activity {
 	private void atualizaMensagem() {
 		UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(this);
 		Usuario usuario = usuarioDAO.recuperarUsuarioPorMatricula(matriculaUsuarioLogado);
-		
 		TextView mensagemBemVindo = (TextView) findViewById(R.id.textViewBemVindoUsuario);
-		mensagemBemVindo.setText("Bem-vindo " + usuario.getNome());
+		String nome = usuario.getNome();
+		mensagemBemVindo.setText("Bem-vindo " +nome.substring(0, nome.indexOf(" ")));
 	}
 
 	public void iniciaTelaNotificacoes(View v){
@@ -67,27 +67,4 @@ public class TelaUsuario extends Activity {
 		Intent intent = new Intent(this, TelaConfiguracoes.class);
         startActivity(intent);
 	}
-
-	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tela_usuario, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-*/
-
 }

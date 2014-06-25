@@ -76,7 +76,6 @@ public class TelaRemetentes extends Activity implements OnItemClickListener {
 	         }
 	    })
 	    .setNegativeButton("Não",  null).show();
-		
 	}
 
 }
